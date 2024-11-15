@@ -33,19 +33,19 @@ function Home() {
   return (
     <div className="flex h-screen w-full flex-col items-center">
       <Header />
-      <div className="relative flex h-full w-full items-center justify-center">
+      <div className="relative flex size-full items-center justify-center">
         <div className={styles.imageBackground}></div>
 
         <div className="flex h-full w-4/5 items-center justify-between overflow-hidden max-md:h-4/5 max-md:w-11/12 max-md:flex-col max-md:overflow-y-scroll">
           <div
-            className="mx-2.5 my-2.5 flex max-w-md flex-col items-center p-6 backdrop-blur-lg"
+            className="m-2.5 flex max-w-md flex-col items-center p-6 backdrop-blur-lg"
             style={{ borderRadius: "40px" }}
           >
             <div className="flex w-4/5 flex-col items-center justify-center">
               <Image src={Logo} alt="Barber Shop Logo" />
             </div>
 
-            <div className="justify-left flex w-full items-center pb-2 pt-2 text-xl text-white max-md:justify-center max-md:text-sm">
+            <div className="justify-start flex w-full items-center py-2 text-xl text-white max-md:justify-center max-md:text-sm">
               <IoLocation size={30} />
               <p className="">Blekingegatan 59, 116 62 Stockholm</p>
             </div>

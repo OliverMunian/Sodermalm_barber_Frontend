@@ -23,7 +23,7 @@ function Profiles() {
       >
         <div className="flex w-3/6 flex-col items-center rounded-3xl bg-black p-6">
           <div className="w-3/12 rounded-2xl border-2 border-black bg-black p-2">
-            <Image src={Logo} />
+            <Image src={Logo} alt='Logo_sodermalm' />
           </div>
           <div className="flex flex-col items-center">
             <h1 className="text-center text-2xl italic text-white">

@@ -81,7 +81,7 @@ function Barber(props) {
               height={data.height}
             />
             <div
-              className="absolute flex h-full w-full flex-col items-center justify-center bg-black"
+              className="absolute flex size-full flex-col items-center justify-center bg-black"
               style={{
                 opacity: "0.8",
                 display: hover === i ? "flex" : "none", // 'flex' pour conserver la centration
@@ -162,7 +162,7 @@ function Barber(props) {
       ></div> */}
 
       {!nextForm && (
-        <div className="flex h-full w-full flex-col items-center justify-center rounded-3xl bg-black p-2">
+        <div className="flex size-full flex-col items-center justify-center rounded-3xl bg-black p-2">
           <div className="mb-5 flex w-full flex-col items-center">
             <div className="flex items-center">
               <p className="italic">
@@ -216,7 +216,7 @@ function Barber(props) {
           className="flex w-full items-center rounded-3xl bg-black p-2 max-xl:flex-col"
           // style={{ backgroundColor: "black" }}
         >
-          <div className="mt-2 flex flex-col items-center justify-center">
+          <div className="my-2 flex flex-col items-center justify-center">
             <div
               className="w-2/5 rounded-full max-xl:w-1/4"
               // style={{width: '40%'}}
@@ -231,7 +231,7 @@ function Barber(props) {
               {barberChoosen.name}
             </p>
             <div
-              className="mt-2 flex items-center hover:cursor-pointer"
+              className="my-2 flex items-center hover:cursor-pointer"
               onClick={() => setNextForm(false)}
             >
               <TbArrowBack size={20} />

@@ -3,7 +3,7 @@ import { FaCalendarCheck } from "react-icons/fa";
 
 function FormSubmit() {
   return (
-    <div className="mb-2 mt-2 w-full rounded-3xl bg-white p-2">
+    <div className="mb-2 my-2 w-full rounded-3xl bg-white p-2">
       <div className="flex w-full justify-center">
         <h1 className="text-xl font-semibold italic text-black">
           Your idendity
