@@ -1,0 +1,18 @@
+.SVG {
+    stroke-width: 4;
+    stroke: white;
+    stroke-dasharray: 3660;
+    stroke-dashoffset: 0;
+    animation: sign 15s ease forwards;
+  }
+  
+  @keyframes sign {
+    from{
+        fill:'none'
+    }
+    to {
+        fill:'white';
+      stroke-dashoffset: 0;
+    }
+  }
+  

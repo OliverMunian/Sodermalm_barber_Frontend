@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".", // Définit le dossier racine du projet
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"] // Définit l'alias @ pour le dossier src
     }
-  }
+  },
+  "include": ["src"] // Inclut le dossier src dans la compilation
 }
