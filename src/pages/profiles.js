@@ -39,9 +39,11 @@ function Profiles() {
                 className="m-2 w-full rounded-xl p-4 text-black"
               />
             </form>
-            <p className="text-cyan-300 underline italic">Forgotten password ?</p>
-            <p className="text-cyan-300 underline italic">Create an account</p>
-            <button className="flex w-6/12 justify-center rounded-xl border-2 border-gray-400 p-4 mt-4">
+            <p className="italic text-cyan-300 underline">
+              Forgotten password ?
+            </p>
+            <p className="italic text-cyan-300 underline">Create an account</p>
+            <button className="mt-4 flex w-6/12 justify-center rounded-xl border-2 border-gray-400 p-4">
               <p className="text-gray-400">Submit</p>
             </button>
           </div>

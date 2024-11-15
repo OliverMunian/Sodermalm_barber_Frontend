@@ -147,7 +147,7 @@ function Barber(props) {
   //Book le creneau horaire choisi
   const validateSlot = (slot) => {
     setSlotSelected(slot);
-    setSubscribe(true)
+    setSubscribe(true);
   };
 
   // const handleSlotSelect = (slot) => {
@@ -262,7 +262,8 @@ function Barber(props) {
               <div className="w-full">
                 <div className="flex w-full justify-center">
                   <p className="italic">
-                    {dayjs(daySelected, "DD-MM-YYYY").format("D MMMM, YYYY")} at {slotSelected}
+                    {dayjs(daySelected, "DD-MM-YYYY").format("D MMMM, YYYY")} at{" "}
+                    {slotSelected}
                   </p>
                 </div>
                 <FormSubmit />

@@ -22,12 +22,7 @@ function Header() {
     if (data.image) {
       return (
         <div key={i}>
-          <Image
-            src={Logo}
-            width={80}
-            height={80}
-            alt={data.alt}
-          />
+          <Image src={Logo} width={80} height={80} alt={data.alt} />
         </div>
       );
     }
@@ -97,7 +92,7 @@ function Header() {
       >
         <Link href={`/${data.link}`}>
           <h2
-            className="font-light text-base sm:text-xl md:text-2xl"
+            className="text-base font-light sm:text-xl md:text-2xl"
             style={{
               textDecoration:
                 hoverIndex == i ? "underline white solid" : "none",

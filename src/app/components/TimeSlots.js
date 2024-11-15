@@ -45,13 +45,13 @@ function TimeSlots(props) {
     }
   };
 
-  function handleClick(){
+  function handleClick() {
     if (selectedSlot) {
       props.onSelect(selectedSlot); // Remonte la valeur vers le parent
     } else {
       props.onSelect(null); // Informe le parent qu'aucun slot n'est sélectionné
     }
-  };
+  }
 
   return (
     <div className="flex w-full flex-col">
@@ -114,11 +114,7 @@ function TimeSlots(props) {
             selectedSlot
               ? "border-green-500 hover:bg-green-800"
               : "border-gray-500 hover:bg-transparent"
-          } ${
-            selectedSlot
-              ? "hover:cursor-pointer"
-              : "hover:cursor-default"
-          }`}
+          } ${selectedSlot ? "hover:cursor-pointer" : "hover:cursor-default"}`}
           onClick={selectedSlot ? handleClick : undefined}
         >
           <p
