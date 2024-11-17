@@ -3,24 +3,26 @@ import { FaCalendarCheck } from "react-icons/fa";
 
 function FormSubmit(props) {
   return (
-    <div className="my-2 mb-2 w-full rounded-3xl bg-white p-2">
+    <div className="my-2 mb-2 w-full rounded-3xl bg-white p-4">
       <div className="flex w-full justify-center">
-        <h1 className="text-xl font-semibold italic text-black">
-          Your idendity
-        </h1>
+        <div className="w-full">
+          <h1 className="text-left text-xl font-semibold italic text-black">
+            Enter your details below:
+          </h1>
+        </div>
       </div>
       <form className="flex flex-col items-center">
         <input
-          placeholder="Firstname"
-          className="m-2 w-full rounded-lg border-b border-white bg-gray-200 p-3 text-black"
+          placeholder="First name"
+          className="m-2 w-full rounded-lg border-b border-white bg-gray-200 p-3 text-black outline-none"
         />
         <input
-          placeholder="Name"
-          className="m-2 w-full rounded-lg border-b border-white bg-gray-200 p-3 text-black"
+          placeholder="Last name"
+          className="m-2 w-full rounded-lg border-b border-white bg-gray-200 p-3 text-black outline-none"
         />
         <input
           placeholder="Email"
-          className="m-2 w-full rounded-lg border-b border-white bg-gray-200 p-3 text-black"
+          className="m-2 w-full rounded-lg border-b border-white bg-gray-200 p-3 text-black outline-none"
         />
         <div className="flex w-full justify-around">
           <button
