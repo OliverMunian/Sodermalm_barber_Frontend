@@ -22,7 +22,7 @@ import FormSubmit from "./Form";
 import zIndex from "@mui/material/styles/zIndex";
 
 function Barber(props) {
-  const [hover, setHover] = useState(null);
+  const [hover, setHover] = useState(false);
   const [selected, setSelected] = useState(null);
   const [barberChoosen, setBarberChoosen] = useState({
     name: null,
@@ -35,7 +35,7 @@ function Barber(props) {
   const [subscribe, setSubscribe] = useState(false);
   const [date, setDate] = useState(null);
   const [slotSelected, setSlotSelected] = useState(null);
-  const daySelected = date;
+  let daySelected = date;
 
   const barberProfiles = [
     {
@@ -58,7 +58,7 @@ function Barber(props) {
 
   const displayBarberProfiles = barberProfiles.map((data, i) => {
     return (
-      <SwiperSlide key={i}>
+      <SwiperSlide key={`${data.name}-${i}`}>
         <div
           className="relative flex justify-center"
           style={{ overflow: "hidden" }}
@@ -68,9 +68,11 @@ function Barber(props) {
             style={{
               borderRadius: "50%",
               border: selected == i ? "4px solid green" : "3px solid white",
+              backgroundColor:
+                selected === i ? "rgba(0, 255, 0, 0.1)" : "transparent",
             }}
-            onMouseOver={() => setHover(i)}
-            onMouseLeave={() => setHover(null)}
+            // onTouchStart={() => setHover(i)}
+            // onTouchEnd={() => toggleChoice(i, data)}
             onClick={() => toggleChoice(i, data)}
           >
             <Image
@@ -80,8 +82,8 @@ function Barber(props) {
               width={data.width}
               height={data.height}
             />
-            <div
-              className="absolute flex size-full flex-col items-center justify-center bg-black"
+            {/* <div
+              className="absolute flex size-full flex-col items-center justify-center bg-black max-sm:display-none"
               style={{
                 opacity: "0.8",
                 display: hover === i ? "flex" : "none", // 'flex' pour conserver la centration
@@ -91,7 +93,7 @@ function Barber(props) {
               <p className="text-center italic text-white">
                 "{data.description}"
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </SwiperSlide>
@@ -99,14 +101,29 @@ function Barber(props) {
   });
 
   //Function
-  function toggleChoice(params, data) {
-    if (selected == params) {
+  function toggleChoice(index, data) {
+    if (selected == index) {
       setSelected(null);
       setBarberChoosen({ name: null, src: null });
+      setDate(false)
+      setSubscribe(false)
+      setSlotSelected(false)
+      setNextForm(false)
     } else {
-      setSelected(params);
+      setSelected(index);
       setBarberChoosen({ name: data.name, src: data.src, alt: data.alt });
+      setSubscribe(false)
+      setSlotSelected(false)
+      setNextForm(false)
     }
+  }
+
+  function backChoiceBarber(){
+    daySelected = null
+    setDate(null)
+    setSubscribe(false)
+    setSlotSelected(false)
+    setNextForm(false)
   }
 
   function handleDateChange(newDate) {
@@ -115,10 +132,6 @@ function Barber(props) {
     } else {
       console.warn("handleDateChange received an invalid date:", newDate);
     }
-  }
-
-  function cancelDate() {
-    // setDate(null);
   }
 
   function validateDate() {
@@ -141,18 +154,23 @@ function Barber(props) {
 
   function cancelSchedule() {
     setScheduleForm(true);
+    setSubscribe(false);
     setDate(null);
   }
 
   //Book le creneau horaire choisi
   const validateSlot = (slot) => {
     setSlotSelected(slot);
-    setSubscribe(true);
+    // setSubscribe(true);
   };
 
-  // const handleSlotSelect = (slot) => {
-  //   setSlotSelected(slot);
-  // };
+  function displayFormSubmit() {
+    setSubscribe(true);
+  }
+
+  function cancelSubmit() {
+    setSubscribe(false);
+  }
 
   return (
     <div className="relative flex items-center justify-center">
@@ -177,6 +195,7 @@ function Barber(props) {
           </div>
           <Swiper
             spaceBetween={50}
+            // allowTouchMove={selected}
             effect={"cards"}
             cardsEffect={{
               slideShadows: false, // Ajoute ceci pour désactiver l'ombre des cartes
@@ -185,7 +204,9 @@ function Barber(props) {
             modules={[EffectCards]}
             centeredSlides={false}
             slidesPerView={"auto"}
-            pagination={true}
+            pagination={{
+              clickable: true, // Active une pagination cliquable sur mobile
+            }}
           >
             {displayBarberProfiles}
           </Swiper>
@@ -197,16 +218,16 @@ function Barber(props) {
               You've selected{" "}
               <span className="font-bold">{barberChoosen.name}</span>
             </h2>
-            <motion.div
+            <div
               className="mt-3 pb-5 hover:cursor-pointer"
-              onClick={() => setNextForm((previous) => !previous)}
+              onClick={() => {setNextForm(true); setScheduleForm(true)}}
             >
               <IoPlaySkipForwardCircleSharp
                 size={30}
                 hover={{ color: "green" }}
               />
               <p className="text-sm italic">Next</p>
-            </motion.div>
+            </div>
           </div>
         </div>
       )}
@@ -232,7 +253,7 @@ function Barber(props) {
             </p>
             <div
               className="my-2 flex items-center hover:cursor-pointer"
-              onClick={() => setNextForm(false)}
+              onClick={() => {backChoiceBarber()}}
             >
               <TbArrowBack size={20} />
               <p className="italic text-white">Choose another barber</p>
@@ -244,20 +265,23 @@ function Barber(props) {
               <TimeSlots
                 date={daySelected}
                 onSelect={validateSlot}
+                display={() => displayFormSubmit()}
                 cancel={() => cancelSchedule()}
               />
             )}
+
             {scheduleForm && (
               <div className="flex flex-col items-center max-md:mt-6 max-md:border-t max-md:pt-4">
                 <h2 className="text-2xl font-semibold italic">Choose a day</h2>
                 <Reservation
                   pickDate={(date) => handleDateChange(date)}
-                  onCancel={() => cancelDate()}
+                  // onCancel={() => cancelDate()}
                   onValidate={(params) => validateDate(params)}
                   className="h-full"
                 />
               </div>
             )}
+
             {subscribe && (
               <div className="w-full">
                 <div className="flex w-full justify-center">
@@ -266,7 +290,7 @@ function Barber(props) {
                     {slotSelected}
                   </p>
                 </div>
-                <FormSubmit />
+                <FormSubmit cancel={cancelSubmit} />
               </div>
             )}
           </div>

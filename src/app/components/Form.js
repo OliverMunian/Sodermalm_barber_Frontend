@@ -1,9 +1,9 @@
 import { MdCancel } from "react-icons/md";
 import { FaCalendarCheck } from "react-icons/fa";
 
-function FormSubmit() {
+function FormSubmit(props) {
   return (
-    <div className="mb-2 my-2 w-full rounded-3xl bg-white p-2">
+    <div className="my-2 mb-2 w-full rounded-3xl bg-white p-2">
       <div className="flex w-full justify-center">
         <h1 className="text-xl font-semibold italic text-black">
           Your idendity
@@ -23,7 +23,10 @@ function FormSubmit() {
           className="m-2 w-full rounded-lg border-b border-white bg-gray-200 p-3 text-black"
         />
         <div className="flex w-full justify-around">
-          <button className="mt-3 flex items-center rounded-xl border-2 border-red-800 px-6 py-2 hover:bg-red-500">
+          <button
+            className="mt-3 flex items-center rounded-xl border-2 border-red-800 px-6 py-2 hover:bg-red-500"
+            onClick={props.cancel}
+          >
             <p className="text-red-800">Cancel</p>
             <MdCancel className="ml-2 text-red-800" size={20} />
           </button>
