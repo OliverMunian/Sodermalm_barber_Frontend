@@ -62,7 +62,11 @@ function Profiles() {
     fetch(`${BACKEND_ADRESS}/users/signup`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify({username: username, email: mail, password: password }),
+      body: JSON.stringify({
+        username: username,
+        email: mail,
+        password: password,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -77,24 +81,21 @@ function Profiles() {
             progress: undefined,
             theme: "dark",
           });
-          setCreate(false)
-          setUsername('')
-          setPassword('')
-        }else{
+          setCreate(false);
+          setUsername("");
+          setPassword("");
+        } else {
           console.log("impossible de creer l'utilisateur");
-          toast.error(
-            "Oops ! Impossible to create your profile",
-            {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            },
-          );
+          toast.error("Oops ! Impossible to create your profile", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
         }
       });
   }
@@ -112,12 +113,12 @@ function Profiles() {
             flexDirection: "column",
           }}
         >
-          <div className="flex w-3/6 flex-col items-center rounded-3xl bg-black p-6">
+          <div className="flex w-3/6 flex-col items-center rounded-3xl bg-black p-6 max-lg:w-4/5">
             <div className="w-5/12 rounded-2xl border-2 border-black bg-black p-2">
               <Image src={Logo} alt="Logo_sodermalm" />
             </div>
             <div className="flex flex-col items-center">
-              <h1 className="text-center text-2xl italic text-white">
+              <h1 className="text-center text-2xl italic text-white max-md:text-lg">
                 Please login to access to your profile
               </h1>
               <form className="flex w-full flex-col items-center">
@@ -130,17 +131,17 @@ function Profiles() {
                 />
                 <input
                   placeholder="Password"
-                  className="m-2 w-full rounded-xl p-4 text-black"
+                  className="m-2 w-full rounded-xl p-4 text-black max-md:m-1"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </form>
-              <p className="italic text-cyan-300 underline hover:cursor-pointer hover:text-cyan-600">
+              <p className="italic text-cyan-300 underline hover:cursor-pointer hover:text-cyan-600 max-md:text-lg">
                 Forgotten password ?
               </p>
               <p
-                className="italic text-cyan-300 underline hover:cursor-pointer hover:text-cyan-600"
+                className="italic text-cyan-300 underline hover:cursor-pointer hover:text-cyan-600 max-md:text-lg"
                 onClick={() => setCreate(true)}
               >
                 Create an account
@@ -172,32 +173,32 @@ function Profiles() {
             flexDirection: "column",
           }}
         >
-          <div className="mt-4 flex w-3/6 flex-col items-center rounded-3xl bg-black p-6">
-            <div className="w-3/12 rounded-2xl border-2 border-black bg-black p-2">
+          <div className="mt-4 flex w-3/6 flex-col items-center rounded-3xl bg-black p-6 max-lg:w-4/5">
+            <div className="w-3/12 rounded-2xl border-2 border-black bg-black p-2 max-md:w-5/12">
               <Image src={Logo} alt="Logo_sodermalm" />
             </div>
             <div className="flex flex-col items-center">
-              <h1 className="text-center text-2xl italic text-white">
+              <h1 className="text-center text-2xl italic text-white max-md:text-lg">
                 Please complete the form to create an account
               </h1>
               <form className="flex w-full flex-col items-center">
                 <input
                   placeholder="Username"
                   type="email"
-                  className="m-2 w-full rounded-xl p-4 text-black"
+                  className="m-2 w-full rounded-xl p-4 text-black max-md:p-3"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
                 <input
                   placeholder="Email"
                   type="email"
-                  className="m-2 w-full rounded-xl p-4 text-black"
+                  className="m-2 w-full rounded-xl p-4 text-black max-md:p-3"
                   value={mail}
                   onChange={(e) => setMail(e.target.value)}
                 />
                 <input
                   placeholder="Password"
-                  className="m-2 w-full rounded-xl p-4 text-black"
+                  className="m-2 w-full rounded-xl p-4 text-black max-md:p-3"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
