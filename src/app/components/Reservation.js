@@ -31,12 +31,17 @@ const theme = createTheme({
 });
 
 function Reservation(props) {
+  const disableSundays = (date) => {
+    // Vérifie si le jour de la semaine est un dimanche (0)
+    return date.day() == [0,1];
+  };
   return (
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <StaticDatePicker
           orientation="portrait"
           minDate={dayjs()}
+          shouldDisableDate={disableSundays} 
           onChange={props.pickDate}
           onAccept={props.onValidate}
           onClose={props.onCancel}

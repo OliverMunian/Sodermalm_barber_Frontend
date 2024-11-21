@@ -9,6 +9,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Barber from "./Barber";
+import CheckBooking from "./checkBooking";
 //icons
 import { IoLocation } from "react-icons/io5";
 import { FaArrowCircleRight } from "react-icons/fa";
@@ -22,6 +23,7 @@ function Home() {
 
   const [hoverIcon, setHoverIcon] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [choice, setChoice] = useState(null);
 
   //   function selectedBarber(params) {
   //     setBarberChoosen(params.name);
@@ -36,7 +38,7 @@ function Home() {
       <div className="relative flex size-full items-center justify-center">
         <div className={styles.imageBackground}></div>
 
-        <div className="flex h-full w-4/5 items-center justify-between overflow-hidden max-md:h-4/5 max-md:w-11/12 max-md:flex-col max-md:overflow-y-scroll">
+        <div className="flex w-4/5 items-center justify-between h-full overflow-hidden max-md:w-11/12 max-md:flex-col max-md:overflow-y-scroll">
           <div
             className="m-2.5 flex max-w-md flex-col items-center p-6 backdrop-blur-lg"
             style={{ borderRadius: "40px" }}
@@ -45,7 +47,7 @@ function Home() {
               <Image src={Logo} alt="Barber Shop Logo" />
             </div>
 
-            <div className="justify-start flex w-full items-center py-2 text-xl text-white max-md:justify-center max-md:text-sm">
+            <div className="flex w-full items-center justify-start py-2 text-xl text-white max-md:justify-center max-md:text-sm">
               <IoLocation size={30} />
               <p className="">Blekingegatan 59, 116 62 Stockholm</p>
             </div>
@@ -86,7 +88,36 @@ function Home() {
               Scroll down to book an appointment <MdSwipeUp className="ml-2" />
             </div>
           </div>
-          <Barber />
+
+          {choice == null && (
+            <div className="relative m-2.5 flex w-2/5 items-center justify-center rounded-2xl p-6 max-md:w-11/12">
+              <div
+                className={styles.logoWallpaper}
+                style={{ borderRadius: "15px" }}
+              ></div>
+
+              <div className="flex w-4/5 flex-col items-center justify-center rounded-xl p-3 backdrop-blur-md">
+                <h1 className="text-center text-xl font-bold text-black max-lg:text-sm">
+                  Make your choice
+                </h1>
+                <button
+                  className="m-3 w-4/5 rounded-xl border-2 border-black p-3 text-center text-black max-lg:text-sm max-sm:text-xs md:hover:bg-black md:hover:text-white"
+                  onClick={() => setChoice("APT")}
+                >
+                  Book an appointment
+                </button>
+                <button
+                  className="m-3 w-4/5 rounded-xl border-2 border-black p-3 text-black max-lg:text-sm max-sm:text-xs md:hover:bg-black md:hover:text-white"
+                  onClick={() => setChoice("RES")}
+                >
+                  Check your reservation
+                </button>
+              </div>
+            </div>
+          )}
+
+          {choice == "APT" && <Barber onCancel={() => setChoice(null)} />}
+          {choice == "RES" && <CheckBooking onCancel={() => setChoice(null)} />}
         </div>
       </div>
     </div>

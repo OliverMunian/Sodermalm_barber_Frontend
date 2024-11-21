@@ -13,7 +13,7 @@ function Header() {
   const array = [
     { title: "Home", link: "" },
     { title: "About us", link: "About" },
-    { image: Logo, alt: "Background_barber_saloon" },
+    { image: Logo, alt: "Background_barber_saloon", link: "" },
     { title: "Products", link: "Products" },
     { title: "Contact", link: "Contact" },
     // { button: "Book appointment" },
@@ -22,7 +22,9 @@ function Header() {
     if (data.image) {
       return (
         <div key={i}>
-          <Image src={Logo} width={80} height={80} alt={data.alt} />
+          <Link href={`/${data.link}`}>
+            <Image src={Logo} width={80} height={80} alt={data.alt} />
+          </Link>
         </div>
       );
     }

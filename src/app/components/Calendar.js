@@ -10,11 +10,70 @@ import {
 } from "@schedule-x/calendar";
 import { createEventsServicePlugin } from "@schedule-x/events-service";
 import { createEventModalPlugin } from "@schedule-x/event-modal";
+import { createEventRecurrencePlugin } from "@schedule-x/event-recurrence";
 import "@schedule-x/theme-default/dist/index.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 
-function Calendar() {
-  const plugins = [createEventsServicePlugin(), createEventModalPlugin()];
+function Calendar(props) {
+  const today = dayjs().format("YYYY-MM-DD");
+  const plugins = [
+    createEventsServicePlugin(),
+    createEventModalPlugin(),
+    createEventRecurrencePlugin(),
+  ];
+  const [customersApts, setCustomersApts] = useState([]);
+  const BACKEND_ADRESS = "http://localhost:4000";
+
+  useEffect(() => {
+    if (props.event) {
+      const flatEvents = props.event.flat(); // Applatissement pour renvoyer un seul tableau
+
+      const allEvent = flatEvents.map((element) => {
+        const formatDate = (dateStr) => {
+          const [day, month, year] = dateStr.split("-");
+          return `${year}-${month}-${day}`;
+        };
+
+        const start = element.schedule.split(" - ")[0];
+        const end = element.schedule.split("- ")[1];
+
+        return {
+          id: element.id,
+          title: `${element.name} ${element.lastname}`,
+          start: `${formatDate(element.day)} ${start}`,
+          end: `${formatDate(element.day)} ${end}`,
+          description: element.reservationNumber,
+          calendarId: "work",
+        };
+      });
+      setCustomersApts(allEvent);
+    }
+  }, [props.event]);
+
+  useEffect(() => {
+    if (customersApts.length > 0) {
+      customersApts.forEach((event) => {
+        // calendar.eventsService.getAll()
+        calendar.eventsService.add(event);
+      });
+    }
+  }, [customersApts]);
+
+  const customEventRenderer = (event) => {
+    return (
+      <div
+        style={{
+          padding: "10px",
+          border: "1px solid gray",
+          borderRadius: "5px",
+        }}
+      >
+        <button>Cancel appointement</button>
+      </div>
+    );
+  };
 
   const calendar = useNextCalendarApp(
     {
@@ -24,28 +83,41 @@ function Calendar() {
         createViewMonthGrid(),
         createViewMonthAgenda(),
       ],
-      events: [
-        {
-          id: "1",
-          title: "Event 1",
-          start: "2024-11-08 08:00",
-          end: "2024-11-08 10:00",
-          description: "Coupe de cheveux",
+      isDark: true,
+      calendars: {
+        work: {
+          colorName: "work",
+          lightColors: {
+            main: "#1265bc",
+            container: "#0000",
+            onContainer: "#4390e1",
+          },
+          darkColors: {
+            main: "#1265bc",
+            onContainer: "#FFFF",
+            container: "#4390e1",
+          },
         },
-      ],
-      selectedDate: "2024-11-08",
+      },
+      customRenderer: {
+        customEventRenderer, // Applique le rendu personnalisé
+      },
+      locale: "en-EN",
+      selectedDate: today,
+      dayBoundaries: {
+        start: "09:00",
+        end: "20:00",
+      },
     },
     plugins,
   );
 
-  // useEffect(() => {
-  //   // get all events
-  //   calendar.eventsService.getAll()
-  // }, [])
-
   return (
-    <div className="flex h-lvh items-center justify-center bg-black">
-      <ScheduleXCalendar className="bg-black" calendarApp={calendar} />
+    <div className="w-full">
+      <ScheduleXCalendar
+        calendarApp={calendar}
+        key={JSON.stringify(customersApts)}
+      />
     </div>
   );
 }
