@@ -12,14 +12,12 @@ function About() {
       <div className="relative h-screen">
         <div className={styles.imageBackground}></div>
         <div className="flex w-full items-center justify-center">
-          <div className="flex justify-center items-center w-2/5 backdrop-blur border-2 border-white rounded-2xl">
+          <div className="flex w-2/5 items-center justify-center rounded-2xl border-2 border-white backdrop-blur">
             <div className="w-2/5 overflow-hidden rounded-lg p-3 backdrop-blur">
               <Image src={Logo} />
             </div>
-            
-            <div>
 
-            </div>
+            <div></div>
           </div>
         </div>
       </div>

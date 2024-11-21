@@ -26,7 +26,7 @@ function Profiles() {
   const fileInputRef = useRef(null);
   const [imageSrc, setImageSrc] = useState(null);
   const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 1 });
-  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "http://localhost:4000";
   const [username, setUsername] = useState("");
   const [id, setId] = useState("");
   const [mail, setMail] = useState("");
