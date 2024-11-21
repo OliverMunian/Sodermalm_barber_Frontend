@@ -37,7 +37,7 @@ function Barber(props) {
   const [subscribe, setSubscribe] = useState(false);
   const [date, setDate] = useState(null);
   const [slotSelected, setSlotSelected] = useState(null);
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
   const [barberProfile, setBarberProfile] = useState([]);
   let daySelected = date;
 

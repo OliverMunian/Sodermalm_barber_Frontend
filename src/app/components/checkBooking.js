@@ -18,7 +18,7 @@ function checkBooking(props) {
     numberBooking: null,
   });
   const [display, setDispay] = useState(false);
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
 
   function Verify() {
     if (input.length < 6 || input == "") {
@@ -109,9 +109,8 @@ function checkBooking(props) {
               Cancel <FaCheck className="ml-3" />
             </button>
             <button
-              className={`my-2 flex items-center rounded-xl border-2 p-2 text-white 
-              ${input.length > 1 ? "border-green-800 bg-green-500 " : "border-zinc-400 bg-white text-zinc-400 cursor-default"}`}
-              onClick={() => input.length > 1 ? Verify() : undefined}
+              className={`my-2 flex items-center rounded-xl border-2 p-2 text-white ${input.length > 1 ? "border-green-800 bg-green-500" : "cursor-default border-zinc-400 bg-white text-zinc-400"}`}
+              onClick={() => (input.length > 1 ? Verify() : undefined)}
             >
               Verify <FaCheck className="ml-3" />
             </button>

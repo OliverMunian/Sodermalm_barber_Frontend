@@ -6,21 +6,20 @@ import { MdCancel } from "react-icons/md";
 import { FaCalendarCheck } from "react-icons/fa";
 
 function FormSubmit(props) {
-
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const day = props.day
-  const slot = props.slot
-  const barberId = props.barberId
-  console.log(day)
-  console.log(barberId)
-  console.log(slot)
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const day = props.day;
+  const slot = props.slot;
+  const barberId = props.barberId;
+  console.log(day);
+  console.log(barberId);
+  console.log(slot);
+  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
 
   function BookAppointment(e) {
     e.preventDefault(); // Empêche le rechargement de la page
-  
+
     fetch(`${BACKEND_ADRESS}/bookings/${barberId}`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
@@ -47,7 +46,7 @@ function FormSubmit(props) {
               draggable: true,
               progress: undefined,
               theme: "dark",
-            }
+            },
           );
         } else {
           toast.error("Oops! An error occurred, please try again", {
@@ -76,7 +75,6 @@ function FormSubmit(props) {
         });
       });
   }
-  
 
   return (
     <div className="my-2 mb-2 w-full rounded-3xl bg-white p-4">
