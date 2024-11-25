@@ -15,8 +15,8 @@ function FormSubmit(props) {
   console.log(day);
   console.log(barberId);
   console.log(slot);
-  const BACKEND_ADRESS = "https://vercel.com/olivermunians-projects/sodermalm-baber-backend";
-
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app"
+  
   function BookAppointment(e) {
     e.preventDefault(); // Empêche le rechargement de la page
 

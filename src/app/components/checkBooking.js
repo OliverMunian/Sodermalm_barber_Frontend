@@ -18,7 +18,7 @@ function checkBooking(props) {
     numberBooking: null,
   });
   const [display, setDispay] = useState(false);
-  const BACKEND_ADRESS = "https://vercel.com/olivermunians-projects/sodermalm-baber-backend";
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
 
   function Verify() {
     if (input.length < 6 || input == "") {

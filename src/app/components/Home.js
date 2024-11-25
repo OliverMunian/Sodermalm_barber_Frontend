@@ -38,7 +38,7 @@ function Home() {
       <div className="relative flex size-full items-center justify-center">
         <div className={styles.imageBackground}></div>
 
-        <div className="flex w-4/5 items-center justify-between h-full overflow-hidden max-md:w-11/12 max-md:flex-col max-md:overflow-y-scroll">
+        <div className="flex h-full w-4/5 items-center justify-between overflow-hidden max-md:w-11/12 max-md:flex-col max-md:overflow-y-scroll">
           <div
             className="m-2.5 flex max-w-md flex-col items-center p-6 backdrop-blur-lg"
             style={{ borderRadius: "40px" }}
@@ -52,12 +52,9 @@ function Home() {
               <p className="">Blekingegatan 59, 116 62 Stockholm</p>
             </div>
 
-            <div className="flex items-center justify-start p-2 max-md:justify-center rounded-full">
-              <div style={{ borderRadius: "50%", width: "7%" }}>
-                <Image
-                  src={SL}
-                  alt="SL_logo_tunnelbanan"
-                />
+            <div className="flex items-center justify-start p-2 max-md:justify-center">
+              <div style={{ width: "7%" }}>
+                <Image src={SL} alt="SL_logo_tunnelbanan" className="rounded-full" />
               </div>
               <div>
                 <h2 className="ml-2 font-semibold text-white max-md:text-sm">
