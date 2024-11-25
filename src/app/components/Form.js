@@ -15,7 +15,7 @@ function FormSubmit(props) {
   console.log(day);
   console.log(barberId);
   console.log(slot);
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
 
   function BookAppointment(e) {
     e.preventDefault(); // Empêche le rechargement de la page

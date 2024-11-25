@@ -30,7 +30,7 @@ function Barber(props) {
     name: null,
     src: null,
     alt: null,
-    daysOff:null,
+    daysOff: null,
   });
   //States
   const [nextForm, setNextForm] = useState(false);
@@ -38,7 +38,7 @@ function Barber(props) {
   const [subscribe, setSubscribe] = useState(false);
   const [date, setDate] = useState(null);
   const [slotSelected, setSlotSelected] = useState(null);
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
   const [barberProfile, setBarberProfile] = useState([]);
   const [daysOff, setDaysOff] = useState([]);
   let daySelected = date;

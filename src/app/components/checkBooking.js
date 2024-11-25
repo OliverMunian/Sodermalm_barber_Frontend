@@ -18,7 +18,7 @@ function checkBooking(props) {
     numberBooking: null,
   });
   const [display, setDispay] = useState(false);
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
 
   function Verify() {
     if (input.length < 6 || input == "") {
