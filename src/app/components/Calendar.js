@@ -24,7 +24,7 @@ function Calendar(props) {
     createEventRecurrencePlugin(),
   ];
   const [customersApts, setCustomersApts] = useState([]);
-  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "https://vercel.com/olivermunians-projects/sodermalm-baber-backend";
 
   useEffect(() => {
     if (props.event) {
