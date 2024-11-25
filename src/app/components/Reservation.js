@@ -31,9 +31,9 @@ const theme = createTheme({
 });
 
 function Reservation(props) {
-  const disableSundays = (date) => {
-    // Vérifie si le jour de la semaine est un dimanche (0)
-    return date.day() == [0,1];
+  const disableDays = (date) => {
+    const disabledDays = props.daysOff;
+    return disabledDays.includes(date.day()); 
   };
   return (
     <ThemeProvider theme={theme}>
@@ -41,7 +41,7 @@ function Reservation(props) {
         <StaticDatePicker
           orientation="portrait"
           minDate={dayjs()}
-          shouldDisableDate={disableSundays} 
+          shouldDisableDate={disableDays}
           onChange={props.pickDate}
           onAccept={props.onValidate}
           onClose={props.onCancel}

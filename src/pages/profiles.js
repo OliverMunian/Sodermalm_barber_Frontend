@@ -114,8 +114,8 @@ function Profiles() {
           localStorage.setItem("token", data.data.token);
           localStorage.setItem("id", data.data._id);
           localStorage.setItem("url", data.data.profilePicture);
-          if(data.data.daysOff){
-            setSelectedDaysOff([data.data.daysOff])
+          if (data.data.daysOff) {
+            setSelectedDaysOff([data.data.daysOff]);
             localStorage.setItem("daysOff", data.data.daysOff);
           }
         } else {
@@ -220,33 +220,22 @@ function Profiles() {
       return updatedDaysOff;
     });
   }
-  
+
   // console.log(selectedDaysOff)
 
-  function updateDaysOff(){
-    fetch(`${BACKEND_ADRESS}/users/${id}`,{
-      method:'PUT',
+  function updateDaysOff() {
+    fetch(`${BACKEND_ADRESS}/users/${id}`, {
+      method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ daysOff: selectedDaysOff }),
-    }).then((response)=>response.json()).then((dataDaysOff)=>{
-      console.log(dataDaysOff)
-      if(dataDaysOff.result){
-        localStorage.removeItem("daysOff");
-        localStorage.setItem("daysOff", JSON.stringify(selectedDaysOff))
-        toast.success("Your days off has been updated !", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      }else{
-        toast.error(
-          "Oops ! Impossible to update your days off",
-          {
+    })
+      .then((response) => response.json())
+      .then((dataDaysOff) => {
+        console.log(dataDaysOff);
+        if (dataDaysOff.result) {
+          localStorage.removeItem("daysOff");
+          localStorage.setItem("daysOff", JSON.stringify(selectedDaysOff));
+          toast.success("Your days off has been updated !", {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -255,29 +244,37 @@ function Profiles() {
             draggable: true,
             progress: undefined,
             theme: "dark",
-          },
-        );
-      }
-    })
+          });
+        } else {
+          toast.error("Oops ! Impossible to update your days off", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      });
   }
 
   const dayOffDisplay = daysOff.map((days, i) => {
-    console.log('log i : ', i)
-    const isSelected = selectedDaysOff.includes(i)
-    console.log('isSelected: ', isSelected)
-    console.log('selectedDaysOff: ', selectedDaysOff)
+    console.log("log i : ", i);
+    const isSelected = selectedDaysOff.includes(i);
+    console.log("isSelected: ", isSelected);
+    console.log("selectedDaysOff: ", selectedDaysOff);
     return (
       <div
         key={i}
-        className={`mx-2 flex h-10 w-10 items-center justify-center rounded-full border-2 p-2 hover:cursor-pointer
-          ${isSelected ? "bg-white" : "bg-transparent"}`}
+        className={`mx-2 flex h-10 w-10 items-center justify-center rounded-full border-2 p-2 hover:cursor-pointer ${isSelected ? "bg-white" : "bg-transparent"}`}
         onClick={() => toggleDaysOff(i)}
       >
         <h1 style={{ color: isSelected ? "#141218" : "white" }}>{days}</h1>
       </div>
     );
   });
-  
 
   return (
     <div>
@@ -513,13 +510,29 @@ function Profiles() {
             </div>
 
             <div className="p-2">
-              <div className="flex flex-col items-center justify-center my-2">
-                <h1 className="text-xl text-white">
-                  Select your days off
-                </h1>
-                <div className="my-3 flex">{dayOffDisplay}</div>
+              <div className="flex justify-around">
+                <div className="my-2 flex flex-col items-center justify-center">
+                  <h1 className="text-xl text-white">Select your days off</h1>
+                  <div className="my-3 flex">{dayOffDisplay}</div>
 
-                <button className="rounded-xl border-2 p-3" onClick={()=>updateDaysOff()}>Update</button>
+                  <button
+                    className="rounded-xl border-2 p-3"
+                    onClick={() => updateDaysOff()}
+                  >
+                    Update
+                  </button>
+                </div>
+                <div className="my-2 flex flex-col items-center justify-center">
+                  <h1 className="text-xl text-white">Select your lunch break</h1>
+                  <div className="my-3 flex">{dayOffDisplay}</div>
+
+                  <button
+                    className="rounded-xl border-2 p-3"
+                    onClick={() => updateDaysOff()}
+                  >
+                    Update
+                  </button>
+                </div>
               </div>
               <div>
                 <Calendar event={appointment} />

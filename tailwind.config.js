@@ -11,6 +11,9 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backgroundImage: {
+        'custom-wallpaper': "url('/Assets/wallpaper.jpg')", // Chemin de votre image
+      },
     },
   },
   plugins: [],

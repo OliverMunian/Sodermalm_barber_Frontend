@@ -30,6 +30,7 @@ function Barber(props) {
     name: null,
     src: null,
     alt: null,
+    daysOff:null,
   });
   //States
   const [nextForm, setNextForm] = useState(false);
@@ -39,11 +40,13 @@ function Barber(props) {
   const [slotSelected, setSlotSelected] = useState(null);
   const BACKEND_ADRESS = "http://localhost:4000";
   const [barberProfile, setBarberProfile] = useState([]);
+  const [daysOff, setDaysOff] = useState([]);
   let daySelected = date;
 
   const barberProfiles = barberProfile.map((data) => ({
     id: data._id,
     src: `${BACKEND_ADRESS}/assets${data.profilePicture}`, // Ajoutez le chemin complet
+    daysOff: data.daysOff,
     name: data.username,
     alt: "Barber_cutting_profile_picture",
     width: 200,
@@ -118,7 +121,7 @@ function Barber(props) {
     console.log(data.id);
     if (selected == index) {
       setSelected(null);
-      setBarberChoosen({ name: null, src: null, id: null });
+      setBarberChoosen({ name: null, src: null, id: null, daysOff: null });
       setDate(false);
       setSubscribe(false);
       setSlotSelected(false);
@@ -130,6 +133,7 @@ function Barber(props) {
         name: data.name,
         src: data.src,
         alt: data.alt,
+        daysOff: data.daysOff,
       });
       setSubscribe(false);
       setSlotSelected(false);
@@ -309,6 +313,7 @@ function Barber(props) {
                 <h2 className="text-2xl font-semibold italic">Choose a day</h2>
                 <Reservation
                   pickDate={(date) => handleDateChange(date)}
+                  daysOff={barberChoosen.daysOff}
                   // onCancel={() => cancelDate()}
                   onValidate={(params) => validateDate(params)}
                   //

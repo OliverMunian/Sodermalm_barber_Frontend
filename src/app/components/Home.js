@@ -52,12 +52,11 @@ function Home() {
               <p className="">Blekingegatan 59, 116 62 Stockholm</p>
             </div>
 
-            <div className="flex items-center justify-start p-2 max-md:justify-center">
+            <div className="flex items-center justify-start p-2 max-md:justify-center rounded-full">
               <div style={{ borderRadius: "50%", width: "7%" }}>
                 <Image
                   src={SL}
                   alt="SL_logo_tunnelbanan"
-                  style={{ borderRadius: "50%" }}
                 />
               </div>
               <div>
