@@ -1,6 +1,7 @@
 "use client";
 import styles from "../../../styles/Home.module.css";
 import Header from "./Header";
+import Footer from "./Footer";
 import Image from "next/image";
 import BarberShop from "../../../public/Assets/barber_shop.jpg";
 import Logo from "../../../public/Assets/Logo_rectangle.png";
@@ -116,6 +117,7 @@ function Home() {
           {choice == "RES" && <CheckBooking onCancel={() => setChoice(null)} />}
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

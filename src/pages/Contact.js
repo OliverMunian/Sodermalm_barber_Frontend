@@ -18,7 +18,7 @@ function Contact() {
   const [subject, setSubject] = useState("");
   const [email, setEmail] = useState("");
   const [text, setText] = useState("");
-  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "http://localhost:4000";
 
   const fields = [name, lastName, email, text];
 

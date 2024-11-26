@@ -1,5 +1,5 @@
 import styles from "../../../styles/Home.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   List,
   ListItem,
@@ -9,18 +9,43 @@ import {
 } from "@mui/material";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 //icons
 import { IoPlaySkipForwardCircleSharp } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import { FaClockRotateLeft } from "react-icons/fa6";
+import { esES } from "@mui/x-date-pickers/locales";
 
 dayjs.extend(customParseFormat);
+dayjs.extend(isSameOrAfter);
 
 function TimeSlots(props) {
+  const BACKEND_ADRESS = "http://localhost:4000";
   const selectedDate = dayjs(props.date, "DD-MM-YYYY");
 
   const [selectedSlot, setSelectedSlot] = useState(false);
   const [index, setIndex] = useState(null);
+  const [booking, setBooking] = useState([]);
+
+  useEffect(() => {
+    fetch(`${BACKEND_ADRESS}/bookings/all/${props.barber}`)
+      .then((response) => response.json())
+      .then((dataBooking) => {
+        if (dataBooking.data) {
+          setBooking(dataBooking.data);
+        }
+      });
+  }, []);
+
+  const bookingFiltered = booking
+    .map((infos) => ({
+      date: infos.day,
+      schedule: infos.schedule,
+    }))
+    .filter((element) => {
+      const elementDate = dayjs(element.date, "DD-MM-YYYY");
+      return elementDate.isSameOrAfter(selectedDate);
+    });
 
   // Crée les créneaux horaires de 9h à 20h pour la date sélectionnée
   const filteredTimeSlots = Array.from({ length: 11 }, (_, i) => {
@@ -33,7 +58,42 @@ function TimeSlots(props) {
     return !isToday || dayjs(slot.split(" - ")[0], "HH:mm").isAfter(now); // Vérifie que l'heure de début est après maintenant
   });
 
+  const finalTimeSlotsFiltered = filteredTimeSlots.map((slot, i) => {
+    const slotDate = selectedDate.format("DD-MM-YYYY");
+
+    // Vérifie si le créneau est réservé
+    const isBooked = bookingFiltered.some(
+      (booking) => booking.date === slotDate && booking.schedule === slot,
+    );
+
+    // Retourne les créneaux avec leur état (disponible ou réservé)
+    return (
+      <ListItem key={i}>
+        <ListItemButton
+          className="m-2 mb-3 rounded-lg p-4"
+          onClick={() => (isBooked ?  undefined : handleSlotSelection(slot, i))}
+          selected={selectedSlot === slot}
+          style={{
+            width: "100%",
+            backgroundColor: index === i ? "black" : isBooked ? "#aab2ba" : 'white' ,
+            borderRadius: "20px",
+            border: index === i ? "2px solid #3c8042" : "2px solid transparent",
+          }}
+        >
+          <ListItemText
+            className="mb-3 flex justify-center text-black"
+            primary={slot}
+            style={{ color: index === i ? "white" : isBooked ? "#5e6368" : "black" }}
+          />
+        </ListItemButton>
+      </ListItem>
+    );
+  });
+
+  console.log("ligne 62, filteredTimeSlots: ", filteredTimeSlots);
+
   const handleSlotSelection = (slot, i) => {
+    console.log(props.barber);
     if (index === i) {
       setIndex(null);
       setSelectedSlot(null);
@@ -71,7 +131,8 @@ function TimeSlots(props) {
       </div>
       <div className={styles.customScrollbar}>
         <List>
-          {filteredTimeSlots.map((slot, i) => (
+          {finalTimeSlotsFiltered}
+          {/* {finalTimeSlotsFiltered.map((slot, i) => (
             <ListItem key={i}>
               <ListItemButton
                 className="m-2 mb-3 rounded-lg p-4"
@@ -92,7 +153,7 @@ function TimeSlots(props) {
                 />
               </ListItemButton>
             </ListItem>
-          ))}
+          ))} */}
         </List>
       </div>
       {selectedSlot && (

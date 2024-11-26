@@ -38,7 +38,7 @@ function Barber(props) {
   const [subscribe, setSubscribe] = useState(false);
   const [date, setDate] = useState(null);
   const [slotSelected, setSlotSelected] = useState(null);
-  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "http://localhost:4000";
   const [barberProfile, setBarberProfile] = useState([]);
   const [daysOff, setDaysOff] = useState([]);
   let daySelected = date;
@@ -302,6 +302,7 @@ function Barber(props) {
             {!scheduleForm && daySelected && !subscribe && (
               <TimeSlots
                 date={daySelected}
+                barber={barberChoosen.id}
                 onSelect={validateSlot}
                 display={() => displayFormSubmit()}
                 cancel={() => cancelSchedule()}
