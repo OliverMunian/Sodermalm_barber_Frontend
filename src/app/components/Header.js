@@ -12,9 +12,9 @@ function Header() {
 
   const array = [
     { title: "Home", link: "" },
-    { title: "Products", link: "products" },
+    { title: "Products", link: "Products" },
     { image: Logo, alt: "Background_barber_saloon", link: "" },
-    { title: "Contact", link: "contact" },
+    { title: "Contact", link: "Contact" },
     { title: "About us", link: "about" },
     // { button: "Book appointment" },
   ];
