@@ -38,7 +38,7 @@ function Barber(props) {
   const [subscribe, setSubscribe] = useState(false);
   const [date, setDate] = useState(null);
   const [slotSelected, setSlotSelected] = useState(null);
-  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "https://sodermalm-barber-frontend.vercel.app";
   const [barberProfile, setBarberProfile] = useState([]);
   const [daysOff, setDaysOff] = useState([]);
   let daySelected = date;
@@ -98,18 +98,6 @@ function Barber(props) {
                 objectFit: "cover",
               }}
             />
-            {/* <div
-              className="absolute flex size-full flex-col items-center justify-center bg-black max-sm:display-none"
-              style={{
-                opacity: "0.8",
-                display: hover === i ? "flex" : "none", // 'flex' pour conserver la centration
-              }}
-            >
-              <h1 className="font-semibold italic text-white">{data.name}</h1>
-              <p className="text-center italic text-white">
-                "{data.description}"
-              </p>
-            </div> */}
           </div>
         </div>
       </SwiperSlide>
@@ -197,9 +185,9 @@ function Barber(props) {
   }
 
   return (
-    <div className="relative m-2 flex h-full items-center justify-center max-sm:w-4/5">
+    <div className="relative m-2 flex h-full w-8/12 items-center justify-center max-sm:w-10/12">
       {!nextForm && (
-        <div className="flex size-full h-full flex-col items-center justify-center rounded-3xl bg-black p-2 max-md:h-4/5">
+        <div className="flex size-full h-4/5 flex-col items-center justify-center rounded-3xl bg-black p-2 max-lg:h-full">
           <div className="mb-5 flex flex-col items-center">
             <div className="flex items-center text-center">
               <p className="italic">
@@ -267,7 +255,7 @@ function Barber(props) {
       )}
 
       {nextForm && (
-        <div className="flex h-full w-full items-center rounded-3xl bg-black max-xl:flex-col max-xl:overflow-y-scroll">
+        <div className="flex w-full items-center rounded-3xl bg-black max-xl:overflow-y-scroll max-lg:h-full max-lg:flex-col">
           <div className="my-2 flex flex-col items-center justify-center p-6">
             <div
               className="h-36 w-36 overflow-hidden rounded-full border-2 border-green-800"
@@ -311,7 +299,7 @@ function Barber(props) {
             )}
 
             {scheduleForm && (
-              <div className="flex flex-col items-center  max-md:mt-6 max-md:pt-2">
+              <div className="flex flex-col items-center max-md:mt-6 max-md:pt-2">
                 <h2 className="text-2xl font-semibold italic">Choose a day</h2>
                 <Reservation
                   pickDate={(date) => handleDateChange(date)}
@@ -324,9 +312,9 @@ function Barber(props) {
             )}
 
             {subscribe && (
-              <div className="w-full">
+              <div className="w-11/12">
                 <div className="flex w-full justify-center">
-                  <p className="italic">
+                  <p className="text-center italic">
                     {dayjs(daySelected, "DD-MM-YYYY").format("D MMMM, YYYY")} at{" "}
                     {slotSelected}
                   </p>

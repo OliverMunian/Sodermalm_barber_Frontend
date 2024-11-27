@@ -17,10 +17,24 @@ function FormSubmit(props) {
   const slot = props.slot;
   const barberId = props.barberId;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "https://sodermalm-barber-frontend.vercel.app";
 
   function BookAppointment(e) {
-    e.preventDefault(); // Empêche le rechargement de la page
+    e.preventDefault();
+    setValidate(true);
+    if (!emailRegex.test(email)) {
+      setEmail("");
+      toast.error("Your email is not correct !", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
 
     fetch(`${BACKEND_ADRESS}/bookings/${barberId}`, {
       method: "POST",
@@ -216,7 +230,7 @@ function FormSubmit(props) {
       {validate && (
         <div>
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-black">
+            <h1 className="text-center text-black">
               Your appointment has been booked successfully.
             </h1>
             <GrValidate size={25} color={"green"} />

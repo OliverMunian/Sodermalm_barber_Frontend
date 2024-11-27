@@ -12,22 +12,22 @@ function Footer() {
         {/* <h2>Join us on Instagram</h2> */}
         <FaInstagram
           className="hover:scale-110 hover:cursor-pointer"
-          color={`${hover ==='IG' ? "#4094d1" : "white"}`}
+          color={`${hover ==='IG' ?"white" : "rgb(174, 183, 191, 0.4)"}`}
           size={35}
           onMouseOver={() => setHover('IG')}
-          onMouseLeave={() => setHover(false)}
-        />
-        <FaTiktok
-          className="hover:scale-110 hover:cursor-pointer"
-          color={`${hover === 'TikTok' ? "#4094d1" : "white"}`}
-          size={35}
-          onMouseOver={() => setHover('TikTok')}
           onMouseLeave={() => setHover(false)}
         />
       </div>
       <div className="flex w-11/12 items-center justify-center">
         <p className="text-zinc-600">© Sodermalm Barbershop</p>
       </div>
+      <FaTiktok
+          className="hover:scale-110 hover:cursor-pointer"
+          color={`${hover ==='TikTok' ? "white" : "rgb(174, 183, 191, 0.4)"}`}
+          size={35}
+          onMouseOver={() => setHover('TikTok')}
+          onMouseLeave={() => setHover(false)}
+        />
     </div>
   );
 }
