@@ -197,9 +197,9 @@ function Barber(props) {
   }
 
   return (
-    <div className="relative m-2 flex h-full items-center justify-center border-2 border-yellow-500 max-sm:w-4/5">
+    <div className="relative m-2 flex h-full items-center justify-center max-sm:w-4/5">
       {!nextForm && (
-        <div className="flex size-full flex-col items-center justify-center rounded-3xl bg-black p-2 xl:h-full">
+        <div className="flex size-full h-full flex-col items-center justify-center rounded-3xl bg-black p-2 max-md:h-4/5">
           <div className="mb-5 flex flex-col items-center">
             <div className="flex items-center text-center">
               <p className="italic">
@@ -214,7 +214,6 @@ function Barber(props) {
           </div>
           <div className="w-full">
             <Swiper
-              className="border-2 border-cyan-300"
               spaceBetween={50}
               // allowTouchMove={selected}
               effect={"cards"}
@@ -268,8 +267,8 @@ function Barber(props) {
       )}
 
       {nextForm && (
-        <div className="flex h-full w-full items-center rounded-3xl border-2 border-red-600 bg-black max-xl:flex-col max-xl:overflow-y-scroll">
-          <div className="my-2 flex flex-col items-center justify-center border-2 border-blue-600 p-6">
+        <div className="flex h-full w-full items-center rounded-3xl bg-black max-xl:flex-col max-xl:overflow-y-scroll">
+          <div className="my-2 flex flex-col items-center justify-center p-6">
             <div
               className="h-36 w-36 overflow-hidden rounded-full border-2 border-green-800"
               // style={{width: '40%'}}
@@ -312,7 +311,7 @@ function Barber(props) {
             )}
 
             {scheduleForm && (
-              <div className="flex flex-col items-center border-2 border-purple-400 max-md:mt-6 max-md:pt-2">
+              <div className="flex flex-col items-center  max-md:mt-6 max-md:pt-2">
                 <h2 className="text-2xl font-semibold italic">Choose a day</h2>
                 <Reservation
                   pickDate={(date) => handleDateChange(date)}
