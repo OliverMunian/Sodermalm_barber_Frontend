@@ -20,7 +20,7 @@ dayjs.extend(customParseFormat);
 dayjs.extend(isSameOrAfter);
 
 function TimeSlots(props) {
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
   const selectedDate = dayjs(props.date, "DD-MM-YYYY");
 
   const [selectedSlot, setSelectedSlot] = useState(false);
@@ -71,11 +71,12 @@ function TimeSlots(props) {
       <ListItem key={i}>
         <ListItemButton
           className="m-2 mb-3 rounded-lg p-4"
-          onClick={() => (isBooked ?  undefined : handleSlotSelection(slot, i))}
+          onClick={() => (isBooked ? undefined : handleSlotSelection(slot, i))}
           selected={selectedSlot === slot}
           style={{
             width: "100%",
-            backgroundColor: index === i ? "black" : isBooked ? "#aab2ba" : 'white' ,
+            backgroundColor:
+              index === i ? "black" : isBooked ? "#aab2ba" : "white",
             borderRadius: "20px",
             border: index === i ? "2px solid #3c8042" : "2px solid transparent",
           }}
@@ -83,7 +84,9 @@ function TimeSlots(props) {
           <ListItemText
             className="mb-3 flex justify-center text-black"
             primary={slot}
-            style={{ color: index === i ? "white" : isBooked ? "#5e6368" : "black" }}
+            style={{
+              color: index === i ? "white" : isBooked ? "#5e6368" : "black",
+            }}
           />
         </ListItemButton>
       </ListItem>

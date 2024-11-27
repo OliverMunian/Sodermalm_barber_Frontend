@@ -12,10 +12,10 @@ function Header() {
 
   const array = [
     { title: "Home", link: "" },
-    { title: "About us", link: "About" },
-    { image: Logo, alt: "Background_barber_saloon", link: "" },
     { title: "Products", link: "Products" },
+    { image: Logo, alt: "Background_barber_saloon", link: "" },
     { title: "Contact", link: "Contact" },
+    { title: "About us", link: "About" },
     // { button: "Book appointment" },
   ];
   const displayMenu = array.map((data, i) => {

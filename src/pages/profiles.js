@@ -26,7 +26,7 @@ function Profiles() {
   const fileInputRef = useRef(null);
   const [imageSrc, setImageSrc] = useState(null);
   const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 1 });
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
   const [username, setUsername] = useState("");
   const [id, setId] = useState("");
   const [mail, setMail] = useState("");
@@ -510,7 +510,6 @@ function Profiles() {
             </div>
 
             <div className="p-2">
-
               <div className="flex justify-around max-lg:flex-col">
                 <div className="my-2 flex flex-col items-center justify-center">
                   <h1 className="text-xl text-white">Select your days off</h1>

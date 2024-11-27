@@ -17,7 +17,7 @@ function FormSubmit(props) {
   const slot = props.slot;
   const barberId = props.barberId;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
 
   function BookAppointment(e) {
     e.preventDefault(); // Empêche le rechargement de la page
@@ -42,7 +42,7 @@ function FormSubmit(props) {
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
               to: email,
-              subject: `Your reservation ${data.data.reservationNumber}`,
+              subject: `Sodermalm Barbershop - Reservation number ${data.data.reservationNumber}`,
               html: textHTML,
             }),
           })
@@ -119,41 +119,39 @@ function FormSubmit(props) {
         }
         p {
           font-size: 16px;
-          line-height: 1.5;
           color: #ffffff;
         }
         .logo {
-          max-width: 150px;
+          max-width: 250px;
           margin-bottom: 20px;
         }
         .footer {
           font-size: 12px;
           text-align: center;
-          margin-top: 5px;
           color: #aaa;
         }
       </style>
     </head>
     <body style="background-color: #f4f4f9">
       <div class="email-container" style="background-color: black">
-        <a href="https://sodermalm-barber-frontend.vercel.app/">
-          <img class="logo" src="https://i.imgur.com/oij0l9R.png" alt="Logo" />
-        </a>
+        <div style="display: flex; justify-content: center">
+          <a href="https://sodermalm-barber-frontend.vercel.app/">
+            <img class="logo" src="https://i.imgur.com/oij0l9R.png" alt="Logo" />
+          </a>
+        </div>
         <h1 style="color: white">Booking confirmation</h1>
-        <p>Hello,</p>
+        <p>Hello ${name},</p>
         <p>
-          Your reservation is confirmed for <strong>${day}</strong> at
+          Your reservation is confirmed <strong>${day}</strong> at
           <strong>${slot}</strong>.
         </p>
         <p>Thank you for choosing us !</p>
   
         <p style="font-style: italic; font-size: 9px">
-          Remember: if you can't honored your appointment, please cancel it
+          Remember: if you can't keep your appointment, please cancel it
         </p>
-        <p class="footer">
-          Blekingegatan 59, 116 62 Stockholm - Skanstull Tunnelbanan 0700419819
-        </p>
-        <p class="footer">Phone number: 0700419819</p>
+        <p class="footer">Blekingegatan 59, 116 62 Stockholm - Skanstull</p>
+        <p class="footer">Phone number: +4670-041 98 19</p>
         <p class="footer">© Sodermalm Barbershop</p>
       </div>
     </body>

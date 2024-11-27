@@ -18,9 +18,78 @@ function Contact() {
   const [subject, setSubject] = useState("");
   const [email, setEmail] = useState("");
   const [text, setText] = useState("");
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
 
   const fields = [name, lastName, email, text];
+
+  const textHTML = `
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <title>Message has been received !</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 20px;
+          background-color: #f4f4f9;
+        }
+        .email-container {
+          background: black;
+          padding: 20px;
+          border-radius: 8px;
+          max-width: 600px;
+          margin: 0 auto;
+          color: "white";
+        }
+        h1 {
+          color: #ffffff;
+        }
+        p {
+          font-size: 16px;
+          line-height: 1.5;
+          color: #ffffff;
+        }
+        .logo {
+          max-width: 250px;
+          margin-bottom: 20px;
+        }
+        .footer {
+          font-size: 12px;
+          text-align: center;
+          margin-top: 5px;
+          color: #aaa;
+        }
+      </style>
+    </head>
+    <body style="background-color: #f4f4f9">
+      <div class="email-container" style="background-color: black">
+      <div style="display: flex; justify-content: center">
+      <a href="https://sodermalm-barber-frontend.vercel.app/">
+        <img class="logo" src="https://i.imgur.com/oij0l9R.png" alt="Logo" />
+      </a>
+    </div>
+        <h1 style="color: white">Your message has been received !</h1>
+        <p>Hello ${name},</p>
+        <p>
+         We received your messsage, our team is going to give you an answer as soon as possible.
+        </p>
+        <p>Thank you.</p>
+
+        <p>Best regards,</p>
+
+        <p style="font-style:italic">Sodermalm Barbershop</p>
+  
+        <p class="footer">
+          Blekingegatan 59, 116 62 Stockholm - Skanstull
+        </p>
+        <p class="footer">Phone number: +4670-041 98 19</p>
+        <p class="footer">© Sodermalm Barbershop</p>
+      </div>
+    </body>
+  </html>  
+`;
 
   function Submit() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,8 +99,8 @@ function Contact() {
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
           to: email,
-          subject: subject,
-          text: text,
+          subject: "Sodermalm Barbershop - Contact",
+          html: textHTML,
         }),
       })
         .then((response) => response.json())

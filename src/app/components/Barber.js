@@ -38,7 +38,7 @@ function Barber(props) {
   const [subscribe, setSubscribe] = useState(false);
   const [date, setDate] = useState(null);
   const [slotSelected, setSlotSelected] = useState(null);
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
   const [barberProfile, setBarberProfile] = useState([]);
   const [daysOff, setDaysOff] = useState([]);
   let daySelected = date;
@@ -197,10 +197,10 @@ function Barber(props) {
   }
 
   return (
-    <div className="relative m-2 flex items-center justify-center">
+    <div className="relative m-2 flex h-full items-center justify-center border-2 border-yellow-500 max-sm:w-4/5">
       {!nextForm && (
-        <div className="flex size-full flex-col items-center justify-center rounded-3xl bg-black p-2">
-          <div className="mb-5 flex w-full flex-col items-center">
+        <div className="flex size-full flex-col items-center justify-center rounded-3xl bg-black p-2 xl:h-full">
+          <div className="mb-5 flex flex-col items-center">
             <div className="flex items-center text-center">
               <p className="italic">
                 Swipe left or right to choose your barber
@@ -212,27 +212,29 @@ function Barber(props) {
               <TbHandClick className="ml-3" size={20} />
             </div>
           </div>
-
-          <Swiper
-            spaceBetween={50}
-            // allowTouchMove={selected}
-            effect={"cards"}
-            cardsEffect={{
-              slideShadows: false, // Ajoute ceci pour désactiver l'ombre des cartes
-            }}
-            grabCursor={true}
-            modules={[EffectCards]}
-            centeredSlides={false}
-            slidesPerView={"auto"}
-            pagination={{
-              clickable: true, // Active une pagination cliquable sur mobile
-            }}
-          >
-            {displayBarberProfiles}
-          </Swiper>
+          <div className="w-full">
+            <Swiper
+              className="border-2 border-cyan-300"
+              spaceBetween={50}
+              // allowTouchMove={selected}
+              effect={"cards"}
+              cardsEffect={{
+                slideShadows: false, // Ajoute ceci pour désactiver l'ombre des cartes
+              }}
+              grabCursor={true}
+              modules={[EffectCards]}
+              centeredSlides={false}
+              slidesPerView={"auto"}
+              pagination={{
+                clickable: true, // Active une pagination cliquable sur mobile
+              }}
+            >
+              {displayBarberProfiles}
+            </Swiper>
+          </div>
 
           {barberChoosen.name ? (
-            <div className="mt-4 flex w-full flex-col items-center justify-center">
+            <div className="mt-4 flex flex-col items-center justify-center">
               <h2>
                 You've selected{" "}
                 <span className="font-bold">{barberChoosen.name}</span>
@@ -266,10 +268,10 @@ function Barber(props) {
       )}
 
       {nextForm && (
-        <div className="flex w-full items-center rounded-3xl bg-black p-2 max-xl:flex-col">
-          <div className="my-2 flex flex-col items-center justify-center p-6">
+        <div className="flex h-full w-full items-center rounded-3xl border-2 border-red-600 bg-black max-xl:flex-col max-xl:overflow-y-scroll">
+          <div className="my-2 flex flex-col items-center justify-center border-2 border-blue-600 p-6">
             <div
-              className="h-36 w-36 overflow-hidden rounded-full border-2 border-green-800 max-xl:w-1/4"
+              className="h-36 w-36 overflow-hidden rounded-full border-2 border-green-800"
               // style={{width: '40%'}}
             >
               <img
@@ -310,7 +312,7 @@ function Barber(props) {
             )}
 
             {scheduleForm && (
-              <div className="flex flex-col items-center max-md:mt-6 max-md:pt-4">
+              <div className="flex flex-col items-center border-2 border-purple-400 max-md:mt-6 max-md:pt-2">
                 <h2 className="text-2xl font-semibold italic">Choose a day</h2>
                 <Reservation
                   pickDate={(date) => handleDateChange(date)}

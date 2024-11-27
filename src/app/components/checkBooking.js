@@ -18,7 +18,7 @@ function checkBooking(props) {
     numberBooking: null,
   });
   const [display, setDispay] = useState(false);
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
 
   function Verify() {
     if (input.length < 6 || input == "") {
@@ -79,14 +79,16 @@ function checkBooking(props) {
   }
 
   return (
-    <div className="relative flex w-2/4 flex-col items-center justify-center rounded-xl p-5">
+    <div className="relative flex w-2/4 flex-col items-center justify-center rounded-xl p-5 max-lg:w-11/12">
       <div
         className={styles.logoWallpaper}
         style={{ borderRadius: "15px" }}
       ></div>
       {!display && (
-        <div className="flex w-3/5 flex-col items-center justify-center rounded-2xl border-2 border-zinc-400 bg-white p-2">
-          <h1 className="font-semibold text-black">Check your reservation</h1>
+        <div className="flex w-4/5 flex-col items-center justify-center rounded-2xl border-2 border-zinc-400 bg-white p-2 max-lg:w-4/5">
+          <h1 className="text-center font-semibold text-black">
+            Check your reservation
+          </h1>
           <input
             placeholder="Booking number"
             className="w-full rounded-xl border-2 border-zinc-400 p-2 uppercase text-black outline-none placeholder:lowercase"
@@ -109,8 +111,8 @@ function checkBooking(props) {
               Cancel <FaCheck className="ml-3" />
             </button>
             <button
-              className={`my-2 flex items-center rounded-xl border-2 p-2 text-white ${input.length > 1 ? "border-green-800 bg-green-500" : "cursor-default border-zinc-400 bg-white text-zinc-400"}`}
-              onClick={() => (input.length > 1 ? Verify() : undefined)}
+              className={`my-2 flex items-center rounded-xl border-2 p-2 text-white ${input.length > 5 ? "border-green-800 bg-green-500" : "cursor-default border-zinc-400 bg-white text-zinc-400"}`}
+              onClick={() => (input.length > 5 ? Verify() : undefined)}
             >
               Verify <FaCheck className="ml-3" />
             </button>
@@ -132,7 +134,7 @@ function checkBooking(props) {
             <h2 className="font-semibold italic text-black">
               {booking.customerName} {booking.customerLastName}
             </h2>
-            <p className="text-black">
+            <p className="text-center text-black">
               {dayjs(booking.day, "DD-MM-YYYY").format("D MMMM, YYYY")} -{" "}
               {booking.schedule}
             </p>

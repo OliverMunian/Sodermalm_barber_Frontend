@@ -39,9 +39,9 @@ function Home() {
       <div className="relative flex size-full items-center justify-center">
         <div className={styles.imageBackground}></div>
 
-        <div className="flex h-full w-4/5 items-center justify-between overflow-hidden max-md:w-11/12 max-md:flex-col max-md:overflow-y-scroll">
+        <div className="flex h-full w-4/5 items-center justify-between max-md:w-11/12 max-lg:flex-col max-xl:overflow-y-scroll">
           <div
-            className="m-2.5 flex max-w-md flex-col items-center p-6 backdrop-blur-lg"
+            className="m-2.5 flex max-w-md flex-col items-center p-6 backdrop-blur-lg "
             style={{ borderRadius: "40px" }}
           >
             <div className="flex w-4/5 flex-col items-center justify-center">
@@ -87,7 +87,7 @@ function Home() {
           </div>
 
           {choice == null && (
-            <div className="relative m-2.5 flex w-2/5 items-center justify-center rounded-2xl p-6 max-md:w-11/12">
+            <div className="relative m-2.5 flex w-2/5 items-center justify-center rounded-2xl p-6 max-lg:w-3/5">
               <div
                 className={styles.logoWallpaper}
                 style={{ borderRadius: "15px" }}
