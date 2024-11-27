@@ -13,6 +13,7 @@ module.exports = {
       },
       backgroundImage: {
         'custom-wallpaper': "url('/Assets/wallpaper.jpg')", // Chemin de votre image
+        'barber-wallpaper' : "url('/Assets/barber_shop.jpg')"
       },
     },
   },

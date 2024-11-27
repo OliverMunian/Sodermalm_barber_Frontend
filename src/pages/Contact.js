@@ -18,7 +18,7 @@ function Contact() {
   const [subject, setSubject] = useState("");
   const [email, setEmail] = useState("");
   const [text, setText] = useState("");
-  const BACKEND_ADRESS = "https://sodermalm-barber-frontend.vercel.app";
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
 
   const fields = [name, lastName, email, text];
 
@@ -66,7 +66,7 @@ function Contact() {
     <body style="background-color: #f4f4f9">
       <div class="email-container" style="background-color: black">
       <div style="display: flex; justify-content: center">
-      <a href="https://sodermalm-barber-frontend.vercel.app/">
+      <a href="https://sodermalm-baber-backend.vercel.app/">
         <img class="logo" src="https://i.imgur.com/oij0l9R.png" alt="Logo" />
       </a>
     </div>
@@ -156,16 +156,16 @@ function Contact() {
         <div className={styles.imageBackground}></div>
         <div className="flex h-full items-center justify-center">
           <div className="relative flex h-5/6 w-4/6 items-center justify-around rounded-xl p-3 max-lg:overflow-y-scroll max-md:h-full max-md:w-full max-md:flex-col">
-            <div className="bg-custom-wallpaper absolute top-0 flex items-center justify-center rounded-lg p-5 max-lg:flex-col">
+            <div className="bg-custom-wallpaper absolute top-0 flex items-center justify-center rounded-lg p-5 max-lg:flex-col max-sm:rounded-none">
               <div className="m-2 flex w-2/5 flex-col rounded-xl p-4 backdrop-blur-lg max-lg:w-11/12">
                 <div className="flex items-center justify-around max-xl:flex-col">
                   <div className="w-2/4 items-center overflow-hidden rounded-2xl">
                     <Image src={Logo} />
                   </div>
-                  <h1 className="text-lg font-semibold italic text-black underline max-xl:text-sm">
+                  {/* <h1 className="text-lg font-semibold italic text-black underline max-xl:text-sm">
                     CONTACT US
                   </h1>{" "}
-                  <BiMailSend className="ml-1" color="black" size={25} />
+                  <BiMailSend className="ml-1" color="black" size={25} /> */}
                 </div>
                 <p className="mt-3 italic text-black max-xl:text-center max-xl:text-sm">
                   You need an specific information ? <br />
@@ -178,7 +178,7 @@ function Contact() {
               </div>
 
               <div className="flex w-3/5 flex-col items-center justify-center rounded-xl border-2 border-zinc-500 bg-zinc-300 p-3 max-lg:w-11/12">
-                <h1 className="font-semibold italic text-black max-md:text-sm">
+                <h1 className="text-center font-semibold italic text-black max-md:text-sm">
                   Please complete the following information in the form below
                 </h1>
                 <form className="flex w-full flex-col">

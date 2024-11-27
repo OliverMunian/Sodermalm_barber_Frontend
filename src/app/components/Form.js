@@ -17,7 +17,7 @@ function FormSubmit(props) {
   const slot = props.slot;
   const barberId = props.barberId;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const BACKEND_ADRESS = "https://sodermalm-barber-frontend.vercel.app";
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
 
   function BookAppointment(e) {
     e.preventDefault();
@@ -149,7 +149,7 @@ function FormSubmit(props) {
     <body style="background-color: #f4f4f9">
       <div class="email-container" style="background-color: black">
         <div style="display: flex; justify-content: center">
-          <a href="https://sodermalm-barber-frontend.vercel.app/">
+          <a href="https://sodermalm-baber-backend.vercel.app/">
             <img class="logo" src="https://i.imgur.com/oij0l9R.png" alt="Logo" />
           </a>
         </div>

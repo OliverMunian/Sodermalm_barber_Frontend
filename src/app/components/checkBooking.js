@@ -20,7 +20,7 @@ function checkBooking(props) {
     customerMail: null,
   });
   const [display, setDispay] = useState(false);
-  const BACKEND_ADRESS = "https://sodermalm-barber-frontend.vercel.app";
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
 
   function Verify() {
     if (input.length < 6 || input == "") {
@@ -177,7 +177,7 @@ function checkBooking(props) {
     <body style="background-color: #f4f4f9">
       <div class="email-container" style="background-color: black">
         <div style="display: flex; justify-content: center">
-          <a href="https://sodermalm-barber-frontend.vercel.app/">
+          <a href="https://sodermalm-baber-backend.vercel.app/">
             <img class="logo" src="https://i.imgur.com/oij0l9R.png" alt="Logo" />
           </a>
         </div>
@@ -258,7 +258,11 @@ function checkBooking(props) {
             </p>
             <div className="flex flex-col items-center">
               <div className="h-28 w-28 overflow-hidden rounded-full border-2 border-blue-400">
-                <img src={booking.barberPicture} className="h-full w-full" />
+                <img
+                  src={booking.barberPicture}
+                  className="h-full w-full"
+                  alt="barber_picture_profile"
+                />
               </div>
               <h1 className="text-xl font-semibold text-white">
                 {booking.barber}
