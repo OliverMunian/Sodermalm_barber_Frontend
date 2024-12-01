@@ -13,7 +13,7 @@ import { FaInstagram } from "react-icons/fa";
 
 function Team() {
   const [barberProfile, setBarberProfile] = useState([]);
-  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
   const profilesBarber = [
     {
       name: "Oliver",
@@ -43,15 +43,25 @@ function Team() {
     };
   }, []);
 
-  const barberDisplay = barberProfile.map((barber, i) => {
+  const barberProfiles = barberProfile.map((data) => ({
+    id: data._id,
+    src: `${BACKEND_ADRESS}/assets${data.profilePicture}`, // Ajoutez le chemin complet
+    daysOff: data.daysOff,
+    name: data.username,
+    alt: "Barber_cutting_profile_picture",
+    width: 200,
+    height: 200,
+  }));
+
+  const barberDisplay = barberProfiles.map((barber, i) => {
     return (
       <div
         key={i}
-        className={`flex flex-col items-center rounded-lg ${i % 2 == 0 ? "bg-gray-400" : "bg-zinc-100"}`}
+        className={`flex flex-col items-center rounded-lg ${i % 2 == 0 ? "bg-gray-400" : "bg-zinc-100"} mx-2`}
       >
         <div className="flex w-9/12 justify-between py-5">
           <div className="flex flex-col justify-center rounded-lg bg-white p-3">
-            <h1 className="font-bold text-black">{barber.username}</h1>
+            <h1 className="font-bold text-black">{barber.name}</h1>
             <p className="text-zinc-400">Master barber</p>
           </div>
           <div className="ml-3 flex h-full flex-col items-end justify-around">
@@ -66,9 +76,9 @@ function Team() {
           </div>
         </div>
         <div className="h-72 w-64">
-          <Image
+          <img
             // src={barber.src}
-            src={`${BACKEND_ADRESS}/assets${barber.profilePicture}`}
+            src={`${barber.src}`}
             alt="Barber_profile_picture"
             className="rounded-xl"
             style={{
@@ -89,12 +99,12 @@ function Team() {
       className="flex w-full flex-col items-center bg-white"
       style={{ borderBottom: "0.75px solid gray" }}
     >
-      <div className="mt-14 flex h-2/4 w-11/12 flex-col items-center">
+      <div className="mt-14 flex h-2/4 w-11/12 flex-col items-center max-md:items-start">
         <h1 className="font-chakrapetch text-5xl font-bold uppercase text-black">
           Meet ours experts
         </h1>
-        <div className="mt-5 w-1/4">
-          <p className="text-center text-xs text-black">
+        <div className="mt-5 w-1/4 max-md:w-2/4">
+          <p className="text-center text-xs text-black max-md:text-left">
             Step into the hands of true professionals. Our team of skilled
             barbers combines precision, creativity to deliver exceptional
             results tailored to you. Experience expertise that defines the art
@@ -104,7 +114,7 @@ function Team() {
       </div>
 
       <div className="mt-5 flex h-2/4 w-11/12 items-center justify-between py-5">
-        <div className="rounded-x flex w-11/12 justify-around">
+        <div className="rounded-x flex w-11/12 justify-around overflow-x-scroll">
           {barberDisplay}
         </div>
       </div>

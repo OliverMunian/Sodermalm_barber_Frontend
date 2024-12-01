@@ -21,7 +21,7 @@ dayjs.extend(customParseFormat);
 dayjs.extend(isSameOrAfter);
 
 function TimeSlots(props) {
-  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
   const selectedDate = dayjs(props.date, "DD-MM-YYYY");
 
   const [selectedSlot, setSelectedSlot] = useState(false);

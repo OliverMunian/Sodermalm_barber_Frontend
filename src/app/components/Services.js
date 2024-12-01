@@ -8,6 +8,9 @@ import Taper from "../../../public/Assets/Haircut_models/Taperfade.jpg";
 import Lowfade from "../../../public/Assets/Haircut_models/LowFade.jpg";
 import Highfade from "../../../public/Assets/Haircut_models/Highfade.jpg";
 import BuzzcutMidFade from "../../../public/Assets/Haircut_models/Buzzcut_MidFade.jpg";
+//icons
+import { FaQuoteLeft } from "react-icons/fa6";
+import { FaQuoteRight } from "react-icons/fa6";
 
 function Services() {
   const haircuts = [
@@ -50,9 +53,13 @@ function Services() {
 
   const pricesDisplay = prices.map((element, i) => {
     return (
-      <div key={i} className="flex w-full justify-between my-1 py-2" style={{borderBottom: i === 3 ? '': '0.75px solid grey'}}>
-        <h1 className="uppercase text-black text-lg">{element.service}</h1>
-        <p className="uppercase text-black text-lg">{element.price}</p>
+      <div
+        key={i}
+        className="my-1 flex w-full justify-between py-2 max-sm:py-1"
+        style={{ borderBottom: i === 3 ? "" : "0.75px solid grey" }}
+      >
+        <h1 className="text-lg uppercase text-black">{element.service}</h1>
+        <p className="text-lg uppercase text-black">{element.price}</p>
       </div>
     );
   });
@@ -60,7 +67,7 @@ function Services() {
   const displayHaircuts = haircuts.map((haircut, i) => {
     return (
       <SwiperSlide key={i}>
-        <div className="flex h-full flex-col rounded-lg overflow-hidden">
+        <div className="flex h-full flex-col overflow-hidden rounded-lg">
           <Image
             src={haircut.src}
             alt={haircut.alt}
@@ -76,11 +83,9 @@ function Services() {
   });
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-around bg-orange-100 border-blue-500 border-2 py-5">
-      <div className="flex justify-between w-11/12 max-lg:flex-col border-red-500 border-2">
-
-
-        <div className="flex flex-col w-1/4 max-lg:w-full max-xl:w-2/4">
+    <div className="flex h-screen w-full flex-col items-center justify-around  bg-orange-100 py-5">
+      <div className="flex w-11/12 justify-between max-lg:flex-col">
+        <div className="flex w-1/4 flex-col max-xl:w-2/4 max-lg:w-full">
           <h1 className="font-chakrapetch text-5xl font-bold uppercase text-black">
             DISCOVER OUR WORK
           </h1>
@@ -90,7 +95,7 @@ function Services() {
             true to your personality.
           </p>
         </div>
-        <div className="w-3/5 max-lg:w-full border-2 border-cyan-500">
+        <div className="w-3/5 max-lg:w-full">
           <Swiper
             slidesPerView={3}
             spaceBetween={50}
@@ -112,21 +117,32 @@ function Services() {
         </div>
       </div>
 
-
-
-
-      <div className="flex w-11/12 items-start justify-between border-2 border-purple-500 max-lg:h-2/4">
-        <div className="flex items-center justify-center h-full w-2/5">
-          <div className="size-64 bg-orange-300 rounded-xl max-lg:size-60">
-
+      <div className="flex w-11/12 items-start justify-between max-lg:h-2/4 max-sm:flex-col">
+        <div className="flex h-full w-2/5 items-center justify-center max-sm:w-full">
+          <div className="flex items-center flex-col justify-center h-64 w-64 rounded-xl bg-orange-300 p-3 max-lg:h-60 max-lg:w-60 max-sm:h-28 max-sm:w-full">
+            <div className="w-full flex justify-start">
+              <FaQuoteLeft color="black" size={16} />
+            </div>
+            <div>
+              <p className="text-black">
+                It is always to be treat by real professionnals who know how
+                execute exactly what you asked for
+              </p>
+            </div>
+            <div className="w-full flex justify-end">
+              {" "}
+              <FaQuoteRight color="black" size={16} />
+            </div>
           </div>
         </div>
 
-        <div className="w-2/4">
+        <div className="w-2/4 max-sm:w-full">
           <h1 className="font-chakrapetch text-5xl font-bold uppercase text-black">
             Our prices
           </h1>
-          <div className="flex flex-col items-center mt-5">{pricesDisplay}</div>
+          <div className="mt-5 flex flex-col items-center max-sm:mt-1">
+            {pricesDisplay}
+          </div>
         </div>
       </div>
     </div>

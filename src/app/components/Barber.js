@@ -1,5 +1,4 @@
 "use client";
-import Rudy from "../../../public/Assets/Barbers_Profiles/Rudy.jpg";
 import Wallpaper from "../../../public/Assets/wallpaper.jpg";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -38,7 +37,7 @@ function Barber(props) {
   const [subscribe, setSubscribe] = useState(false);
   const [date, setDate] = useState(null);
   const [slotSelected, setSlotSelected] = useState(null);
-  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
   const [barberProfile, setBarberProfile] = useState([]);
   const [daysOff, setDaysOff] = useState([]);
   let daySelected = date;

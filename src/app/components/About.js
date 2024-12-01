@@ -48,7 +48,7 @@ const infosSaloon = [
     title: "+4670-041 98 19",
     description: (
       <>
-        Monday-Saturday: 10:00-20:00, <br />
+        Mon-Sat: 10:00-20:00, <br />
         Sunday: 11:00-19:00
       </>
     ),
@@ -74,7 +74,7 @@ const displayInfosSaloon = infosSaloon.map((element, i) => {
           {element.icon}
         </div>
         <div className="ml-2 flex w-8/12 flex-col items-start justify-center max-md:w-full max-md:items-center">
-          <h1 className="mb-3 text-3xl font-semibold max-xl:text-2xl font-chakrapetch">
+          <h1 className="mb-5 text-3xl font-semibold max-xl:text-2xl font-chakrapetch max-sm:text-sm">
             {element.title}{" "}
           </h1>
           <div className="flex items-center">
@@ -97,7 +97,7 @@ const displayInfosSaloon = infosSaloon.map((element, i) => {
         {element.icon}
       </div>
       <div className="ml-2 flex w-8/12 flex-col items-start justify-center max-md:w-full max-md:items-center">
-        <h1 className="max-md:text-md mb-3 text-3xl font-semibold max-xl:text-2xl max-lg:text-xl font-chakrapetch">
+        <h1 className="max-md:text-md mb-3 text-3xl font-semibold max-xl:text-2xl max-lg:text-xl  max-sm:text-sm font-chakrapetch">
           {element.title}
         </h1>
         <p className="text-sm max-md:text-xs max-md:text-center">{element.description}</p>
@@ -290,71 +290,6 @@ function About() {
           {displayInfosSaloon}
         </div>
       </div>
-
-      {/* <div className="relative h-screen">
-        <div className="flex h-screen w-full items-center justify-center">
-          <div className="flex w-3/5 flex-col items-center justify-center rounded-2xl border-2 border-white p-4 max-md:w-10/12">
-
-            <div className="flex flex-col items-center justify-center bg-neutral-50 rounded-xl p-3 m-2">
-              <div className="flex items-center max-sm:items-start">
-                <IoLocation color="black" className="mr-2 max-sm:mr-0" size={30} />
-                <p className="text-xl text-black max-sm:text-center max-sm:text-md">
-                  Blekingegatan 59, 116 62 Stockholm
-                </p>
-              </div>
-              <div className="mt-2 flex items-center justify-center">
-                <div className="w-2/12 rounded-full" style={{ width: "7%" }}>
-                  <Image
-                    src={SL}
-                    className="rounded-full"
-                    alt="SL_logo_tunnelbanan"
-                  />
-                </div>
-                <h2 className="ml-2 text-xl font-semibold text-black max-md:text-sm">
-                  SKANSTULL
-                </h2>
-              </div>
-              <div className="mt-2 flex items-center justify-center">
-                <FaPhoneAlt size={20} color={"black"} />
-                <p className="ml-2 text-xl text-black max-md:text-sm">
-                  070-041 98 19
-                </p>
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold uppercase text-black underline">
-                  Our opening hours
-                </h1>
-                <div className="flex italic text-black max-sm:flex-col max-sm:items-center">
-                  <h3>Monday until Saturday :</h3>
-                  <p className="ml-1 text-black">10:00 - 20:00</p>
-                </div>
-                <div className="flex italic text-black">
-                  <h3>Sunday :</h3>
-                  <p className="ml-1">11:00 - 19:00</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative h-52 w-full overflow-hidden rounded-3xl md:h-88 lg:h-[300px]">
-              <GoogleMap
-                mapContainerClassName="absolute inset-0"
-                center={center}
-                zoom={11}
-                onLoad={onLoad}
-                onUnmount={onUnmount}
-                options={{
-                  styles: darkModeStyles, // Applique le style sombre
-                  disableDefaultUI: true, // Retire les contrôles par défaut (zoom, type de carte, etc.)
-                }}
-              >
-                <MarkerF
-                  position={{ lat: place.latitude, lng: place.longitude }}
-                />
-              </GoogleMap>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 }
