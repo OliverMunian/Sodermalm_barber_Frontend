@@ -13,7 +13,7 @@ import { FaInstagram } from "react-icons/fa";
 
 function Team() {
   const [barberProfile, setBarberProfile] = useState([]);
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
   const profilesBarber = [
     {
       name: "Oliver",
@@ -96,9 +96,9 @@ function Team() {
         <div className="mt-5 w-1/4">
           <p className="text-center text-xs text-black">
             Step into the hands of true professionals. Our team of skilled
-            barbers combines precision, creativity to deliver exceptional 
-            results tailored to you. Experience expertise that defines the 
-            art of barbering
+            barbers combines precision, creativity to deliver exceptional
+            results tailored to you. Experience expertise that defines the art
+            of barbering
           </p>
         </div>
       </div>

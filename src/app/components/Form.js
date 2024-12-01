@@ -17,7 +17,7 @@ function FormSubmit(props) {
   const slot = props.slot;
   const barberId = props.barberId;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
 
   function BookAppointment(e) {
     e.preventDefault();

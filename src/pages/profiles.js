@@ -26,7 +26,7 @@ function Profiles() {
   const fileInputRef = useRef(null);
   const [imageSrc, setImageSrc] = useState(null);
   const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 1 });
-  const BACKEND_ADRESS = "http://localhost:4000";
+  const BACKEND_ADRESS = "http://sodermalm-baber-backend.vercel.app";
   const [username, setUsername] = useState("");
   const [id, setId] = useState("");
   const [mail, setMail] = useState("");
@@ -411,8 +411,8 @@ function Profiles() {
       {connected && (
         <div className="relative flex h-screen items-center justify-center overflow-hidden">
           <div
-            className="mt-2 h-5/6 overflow-y-scroll rounded-2xl border-2 border-zinc-300 w-11/12"
-            style={{backgroundColor: "#141218" }}
+            className="mt-2 h-5/6 w-11/12 overflow-y-scroll rounded-2xl border-2 border-zinc-300"
+            style={{ backgroundColor: "#141218" }}
           >
             <div className="flex flex-col items-center p-3">
               <div className="flex w-full items-center justify-around p-3 max-md:flex-col">
