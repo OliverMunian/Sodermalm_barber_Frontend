@@ -17,14 +17,12 @@ function FormSubmit(props) {
   const slot = props.slot;
   const barberId = props.barberId;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "http://localhost:4000";
 
   function BookAppointment(e) {
     e.preventDefault();
-    setValidate(true);
-    if (!emailRegex.test(email)) {
-      setEmail("");
-      toast.error("Your email is not correct !", {
+    if (!name || !lastName || !emailRegex.test(email)) {
+      toast.error("Please complete the form entirely !", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -36,51 +34,67 @@ function FormSubmit(props) {
       });
     }
 
-    fetch(`${BACKEND_ADRESS}/bookings/${barberId}`, {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        name: name,
-        lastname: lastName,
-        email: email,
-        day: day,
-        schedule: slot,
-      }),
-    })
-      .then((response) => response.json()) // Traite la réponse en JSON
-      .then((data) => {
-        console.log(data);
-        if (data) {
-          fetch(`${BACKEND_ADRESS}/send-email`, {
-            method: "POST",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify({
-              to: email,
-              subject: `Sodermalm Barbershop - Reservation number ${data.data.reservationNumber}`,
-              html: textHTML,
-            }),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data) {
-                setValidate(true);
-                toast.success(
-                  "Appointment validated! You will receive a confirmation on your email",
-                  {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                  },
-                );
-              }
+    if (name && lastName && emailRegex.test(email)) {
+      setValidate(true);
+      fetch(`${BACKEND_ADRESS}/bookings/${barberId}`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          name: name,
+          lastname: lastName,
+          email: email,
+          day: day,
+          schedule: slot,
+        }),
+      })
+        .then((response) => response.json()) // Traite la réponse en JSON
+        .then((data) => {
+          console.log(data);
+          if (data) {
+            fetch(`${BACKEND_ADRESS}/send-email`, {
+              method: "POST",
+              headers: { "Content-type": "application/json" },
+              body: JSON.stringify({
+                to: email,
+                subject: `Sodermalm Barbershop - Reservation number ${data.data.reservationNumber}`,
+                html: textHTML,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data) {
+                  setValidate(true);
+                  toast.success(
+                    "Appointment validated! You will receive a confirmation on your email",
+                    {
+                      position: "top-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "dark",
+                    },
+                  );
+                }
+              });
+          } else {
+            toast.error("Oops! An error occurred, please try again", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
             });
-        } else {
-          toast.error("Oops! An error occurred, please try again", {
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          toast.error("Oops! Something went wrong. Please try again later.", {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -90,21 +104,8 @@ function FormSubmit(props) {
             progress: undefined,
             theme: "dark",
           });
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        toast.error("Oops! Something went wrong. Please try again later.", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
         });
-      });
+    }
   }
 
   const textHTML = `
@@ -149,7 +150,7 @@ function FormSubmit(props) {
     <body style="background-color: #f4f4f9">
       <div class="email-container" style="background-color: black">
         <div style="display: flex; justify-content: center">
-          <a href="https://sodermalm-baber-backend.vercel.app/">
+          <a href="https://sodermalm-baber-backend.vercel.app /">
             <img class="logo" src="https://i.imgur.com/oij0l9R.png" alt="Logo" />
           </a>
         </div>
@@ -173,12 +174,12 @@ function FormSubmit(props) {
 `;
 
   return (
-    <div className="my-2 mb-2 w-full rounded-3xl bg-white p-4">
+    <div className="my-2 mb-2 w-full rounded-3xl p-4">
       {!validate && (
         <div>
           <div className="flex w-full justify-center">
             <div className="w-full">
-              <h1 className="text-left text-xl font-semibold italic text-black">
+              <h1 className="text-md text-center font-semibold italic text-white">
                 Enter your details below:
               </h1>
             </div>
@@ -186,7 +187,8 @@ function FormSubmit(props) {
           <form className="flex flex-col items-center">
             <input
               placeholder="First name"
-              className="m-2 w-full rounded-lg border-b border-white bg-gray-200 p-3 text-black outline-none"
+              className="m-2 w-full rounded-lg border-white bg-gray-200 bg-transparent p-3 text-white placeholder-white outline-none"
+              style={{ border: "1px solid white" }}
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
@@ -194,7 +196,8 @@ function FormSubmit(props) {
             />
             <input
               placeholder="Last name"
-              className="m-2 w-full rounded-lg border-b border-white bg-gray-200 p-3 text-black outline-none"
+              className="m-2 w-full rounded-lg border-white bg-gray-200 bg-transparent p-3 text-white placeholder-white outline-none"
+              style={{ border: "1px solid white" }}
               value={lastName}
               onChange={(e) => {
                 setLastName(e.target.value);
@@ -202,26 +205,25 @@ function FormSubmit(props) {
             />
             <input
               placeholder="Email"
-              className="m-2 w-full rounded-lg border-b border-white bg-gray-200 p-3 text-black outline-none"
+              className="m-2 w-full rounded-lg border-white bg-gray-200 bg-transparent p-3 text-white placeholder-white outline-none"
+              style={{ border: "1px solid white" }}
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
             />
-            <div className="flex w-full justify-around">
+            <div className="flex w-full items-center justify-around max-md:flex-col">
               <button
-                className="mt-3 flex items-center rounded-xl border-2 border-red-800 px-6 py-2 hover:bg-red-500"
+                className="mt-3 flex items-center rounded-xl bg-orange-300 px-6 py-2 hover:bg-orange-500"
                 onClick={props.cancel}
               >
-                <p className="text-red-800">Cancel</p>
-                <MdCancel className="ml-2 text-red-800" size={20} />
+                <p className="text-white">Cancel</p>
               </button>
               <button
-                className="mt-3 flex rounded-xl border-2 border-green-800 px-6 py-2 hover:bg-green-500"
+                className="mt-3 flex rounded-xl bg-green-500 px-6 py-2 hover:bg-green-800"
                 onClick={(e) => BookAppointment(e)}
               >
-                <p className="text-green-800">Submit</p>
-                <FaCalendarCheck className="ml-2 text-green-800" size={20} />
+                <p className="text-white">Submit</p>
               </button>
             </div>
           </form>
@@ -230,7 +232,7 @@ function FormSubmit(props) {
       {validate && (
         <div>
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-center text-black">
+            <h1 className="text-center text-white">
               Your appointment has been booked successfully.
             </h1>
             <GrValidate size={25} color={"green"} />

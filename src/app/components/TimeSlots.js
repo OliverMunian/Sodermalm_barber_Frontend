@@ -15,12 +15,13 @@ import { IoPlaySkipForwardCircleSharp } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { esES } from "@mui/x-date-pickers/locales";
+import { MdSwipeDown } from "react-icons/md";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(isSameOrAfter);
 
 function TimeSlots(props) {
-  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "http://localhost:4000";
   const selectedDate = dayjs(props.date, "DD-MM-YYYY");
 
   const [selectedSlot, setSelectedSlot] = useState(false);
@@ -76,16 +77,16 @@ function TimeSlots(props) {
           style={{
             width: "100%",
             backgroundColor:
-              index === i ? "black" : isBooked ? "#aab2ba" : "white",
+              index === i ? "white" : isBooked ? "#aab2ba" : "transparent",
             borderRadius: "20px",
-            border: index === i ? "2px solid #3c8042" : "2px solid transparent",
+            border: index === i ? "2px solid #3c8042" : "2px solid white",
           }}
         >
           <ListItemText
             className="mb-3 flex justify-center text-black"
             primary={slot}
             style={{
-              color: index === i ? "white" : isBooked ? "#5e6368" : "black",
+              color: index === i ? "black" : isBooked ? "#5e6368" : "white",
             }}
           />
         </ListItemButton>
@@ -123,7 +124,14 @@ function TimeSlots(props) {
           <h6 className="text-center text-lg font-semibold italic">
             Please choose a slot
           </h6>
+          <p className="hidden max-lg:flex"></p>
           <FaClockRotateLeft className="ml-2" />
+        </div>
+        <div className="hidden w-full max-lg:flex max-lg:items-start max-lg:justify-center">
+          <p className="text-center text-sm">
+            Scroll drown and pick up a slot{" "}
+          </p>
+          <MdSwipeDown className="ml-2" />
         </div>
         <div>
           <p className="text-sm italic">
@@ -133,66 +141,32 @@ function TimeSlots(props) {
         </div>
       </div>
       <div className={styles.customScrollbar}>
-        <List>
-          {finalTimeSlotsFiltered}
-          {/* {finalTimeSlotsFiltered.map((slot, i) => (
-            <ListItem key={i}>
-              <ListItemButton
-                className="m-2 mb-3 rounded-lg p-4"
-                onClick={() => handleSlotSelection(slot, i)}
-                selected={selectedSlot === slot}
-                style={{
-                  width: "100%",
-                  backgroundColor: index === i ? "black" : "white",
-                  borderRadius: "20px",
-                  border:
-                    index === i ? "2px solid #3c8042" : "2px solid transparent",
-                }}
-              >
-                <ListItemText
-                  className="mb-3 flex justify-center text-black"
-                  primary={slot}
-                  style={{ color: index === i ? "white" : "black" }}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))} */}
-        </List>
+        <List>{finalTimeSlotsFiltered}</List>
       </div>
       {selectedSlot && (
         <h6 className="text-center text-xl font-semibold italic">
-          Your time slot: {selectedSlot}
-          {/* {dayjs(props.date, "DD-MM-YYYY").format("D MMMM, YYYY")} */}
+          {selectedSlot}
         </h6>
       )}
       <div className="flex w-full items-center justify-between pt-3">
         <button
-          className="m-1 flex w-3/4 items-center justify-center rounded-xl border-2 border-red-500 p-2 font-semibold hover:bg-red-800"
+          className="m-1 flex w-3/4 items-center justify-center rounded-xl bg-orange-300 p-2 font-semibold hover:bg-orange-500"
           onClick={props.cancel}
         >
-          <p className="text-red-500">Cancel</p>{" "}
-          <MdCancel className="ml-2 text-red-500" size={20} />
+          <p className="text-white">Cancel</p>
         </button>
         <button
-          className={`m-1 flex w-3/4 items-center justify-center rounded-xl border-2 p-2 font-semibold ${
+          className={`m-1 flex w-3/4 items-center justify-center rounded-xl p-2 font-semibold ${
             selectedSlot
-              ? "border-green-500 hover:bg-green-800"
-              : "border-gray-500 hover:bg-transparent"
+              ? "bg-green-500 hover:bg-green-800"
+              : "border-2 border-gray-500 hover:bg-transparent"
           } ${selectedSlot ? "hover:cursor-pointer" : "hover:cursor-default"}`}
           // onClick={selectedSlot ? handleClick : undefined}
           onClick={selectedSlot ? props.display : undefined}
         >
-          <p
-            className="text-green-500"
-            style={{ color: !selectedSlot && "grey" }}
-          >
+          <p className="text-white" style={{ color: !selectedSlot && "grey" }}>
             Next
           </p>{" "}
-          <IoPlaySkipForwardCircleSharp
-            className="ml-2 text-green-500"
-            size={20}
-            style={{ color: !selectedSlot && "grey" }}
-          />
         </button>
       </div>
     </div>

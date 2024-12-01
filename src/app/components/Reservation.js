@@ -1,6 +1,8 @@
 import styles from "../../../styles/Home.module.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
 import { StaticDatePicker } from "@mui/x-date-pickers"; // Keep only one of these imports
+
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -31,15 +33,16 @@ const theme = createTheme({
 });
 
 function Reservation(props) {
+  const isPortrait = useMediaQuery("(max-width: 768px)");
   const disableDays = (date) => {
     const disabledDays = props.daysOff;
-    return disabledDays.includes(date.day()); 
+    return disabledDays.includes(date.day());
   };
   return (
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <StaticDatePicker
-          orientation="portrait"
+          orientation={isPortrait ? "portrait" : "landscape"}
           minDate={dayjs()}
           shouldDisableDate={disableDays}
           onChange={props.pickDate}
@@ -48,27 +51,35 @@ function Reservation(props) {
           sx={{
             borderRadius: "20px",
             backgroundColor: "transparent",
+            fontWeight: "bold",
             color: "white",
             "& .MuiDayPicker-root": {
               color: "white",
               backgroundColor: "white",
+              fontWeight: "bold",
             },
             "& .Mui-selected": {
               backgroundColor: "#444",
+              fontWeight: "bold",
             },
             "& .MuiTypography-root": {
               color: "white",
+              fontWeight: "bold",
             },
             "& .MuiButtonBase-root": {
               color: "white",
+              fontWeight: "bold",
             },
             "& .MuiPickersDay-today": {
-              borderColor: "green", // Change le contour de la date d'aujourd'hui
+              borderColor: "#568bd7", // Change le contour de la date d'aujourd'hui
               borderWidth: "2px",
-              borderStyle: "dotted",
+              borderStyle: "solid",
+              color: "black",
+              backgroundColor: "white",
             },
             "& .MuiPickersCalendarHeader-switchViewButton": {
               color: "white", // Change la couleur de l'icône de switch entre mois/année
+              fontWeight: "bold",
             },
             "& .MuiPickersCalendarHeader-iconButton": {
               color: "white", // Change la couleur des flèches de navigation

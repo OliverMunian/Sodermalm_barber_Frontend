@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 import styles from "../../../styles/Home.module.css";
 import { useState } from "react";
 //icons
-import { FaCheck } from "react-icons/fa6";
+import { FaTiktok } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
 
 function checkBooking(props) {
   const [input, setInput] = useState("");
@@ -20,7 +21,7 @@ function checkBooking(props) {
     customerMail: null,
   });
   const [display, setDispay] = useState(false);
-  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "http://localhost:4000";
 
   function Verify() {
     if (input.length < 6 || input == "") {
@@ -177,7 +178,7 @@ function checkBooking(props) {
     <body style="background-color: #f4f4f9">
       <div class="email-container" style="background-color: black">
         <div style="display: flex; justify-content: center">
-          <a href="https://sodermalm-baber-backend.vercel.app/">
+          <a href="https://sodermalm-baber-backend.vercel.app /">
             <img class="logo" src="https://i.imgur.com/oij0l9R.png" alt="Logo" />
           </a>
         </div>
@@ -197,19 +198,19 @@ function checkBooking(props) {
 `;
 
   return (
-    <div className="relative m-2 flex w-2/4 flex-col items-center justify-center rounded-xl p-5 max-lg:w-4/5">
-      <div
-        className={styles.logoWallpaper}
-        style={{ borderRadius: "15px" }}
-      ></div>
+    <div className="flex h-96 w-96 flex-col items-center justify-center max-md:h-80 max-md:w-80">
       {!display && (
-        <div className="flex w-4/5 flex-col items-center justify-center rounded-2xl border-2 border-zinc-400 bg-white p-2 max-lg:w-4/5">
-          <h1 className="text-center font-semibold text-black">
+        <div
+          className="flex size-full flex-col items-center justify-center rounded-2xl p-2 backdrop-blur-md"
+          style={{ border: "1px solid white" }}
+        >
+          <h1 className="my-3 text-center text-2xl font-semibold text-white">
             Check your reservation
           </h1>
           <input
-            placeholder="Booking number"
-            className="w-full rounded-xl border-2 border-zinc-400 p-2 uppercase text-black outline-none placeholder:lowercase"
+            placeholder="Your booking number"
+            style={{ border: "1px solid white" }}
+            className="w-full rounded-xl border-white bg-transparent p-2 font-semibold uppercase text-white outline-none backdrop-blur-md placeholder:lowercase placeholder:text-zinc-300"
             maxLength={6}
             value={input}
             onChange={(e) => {
@@ -217,38 +218,42 @@ function checkBooking(props) {
               setError("");
             }}
           />
-          <p className="text-xs italic text-zinc-400">
+          <p className="text-xs italic text-white">
             Reservation number contains 6 caracters{" "}
           </p>
           <p className="text-xs italic text-red-500">{error}</p>
-          <div className="flex w-full items-center justify-around">
+          <div className="my-3 flex w-full items-center justify-around">
             <button
-              className="my-2 flex items-center rounded-xl border-2 border-red-800 bg-red-500 p-2 text-white"
+              className="my-2 flex items-center rounded-md bg-orange-300 px-5 py-2 text-white hover:bg-orange-400"
+              // style={{backgroundColor:'#524956'}}
               onClick={props.onCancel}
             >
-              Cancel <FaCheck className="ml-3" />
+              Cancel
             </button>
             <button
-              className={`my-2 flex items-center rounded-xl border-2 p-2 text-white ${input.length > 5 ? "border-green-800 bg-green-500" : "cursor-default border-zinc-400 bg-white text-zinc-400"}`}
+              className={`my-2 flex items-center rounded-md px-5 py-2 text-white ${input.length > 5 ? "bg-green-500 hover:bg-green-800" : "cursor-default bg-white text-zinc-400"}`}
               onClick={() => (input.length > 5 ? Verify() : undefined)}
             >
-              Verify <FaCheck className="ml-3" />
+              Verify
             </button>
           </div>
         </div>
       )}
+
       {display && (
-        <div className="max-lg:3/5 flex w-4/5 flex-col items-center justify-center rounded-2xl border-2 border-zinc-400 bg-black p-2">
-          <div
-            className="flex w-full flex-col items-center justify-center border-zinc-500"
-            style={{ borderBottom: "0.75px grey solid" }}
-          >
+        <div
+          className="flex size-full items-center justify-center rounded-2xl p-2 backdrop-blur-sm"
+          style={{ border: "1px solid white" }}
+        >
+          <div className="flex flex-col items-center justify-center">
             <h1 className="font-semibold text-white">Your reservation</h1>
+            <div
+              className="w-11/12"
+              style={{ border: "0.75px solid white" }}
+            ></div>
             <p className="italic text-white" style={{ fontSize: "9px" }}>
               {booking.numberBooking}
             </p>
-          </div>
-          <div className="mt-2 flex flex-col items-center justify-center">
             <h2 className="font-semibold italic text-white">
               {booking.customerName} {booking.customerLastName}
             </h2>
@@ -256,32 +261,48 @@ function checkBooking(props) {
               {dayjs(booking.day, "DD-MM-YYYY").format("D MMMM, YYYY")} -{" "}
               {booking.schedule}
             </p>
-            <div className="flex flex-col items-center">
-              <div className="h-28 w-28 overflow-hidden rounded-full border-2 border-blue-400">
-                <img
-                  src={booking.barberPicture}
-                  className="h-full w-full"
-                  alt="barber_picture_profile"
-                />
-              </div>
-              <h1 className="text-xl font-semibold text-white">
-                {booking.barber}
-              </h1>
+            <div className="flex w-full items-center justify-between p-2">
+              <button
+                className="w-2/5 rounded-xl bg-green-400 p-2 hover:bg-green-700"
+                onClick={() => Clear()}
+              >
+                <h1 className="text-white">Ok</h1>
+              </button>
+              <button
+                className="w-2/5 rounded-xl bg-orange-300 p-2 hover:bg-orange-400"
+                onClick={() => CancelBooking()}
+              >
+                <h1 className="text-white">Cancel</h1>
+              </button>
             </div>
           </div>
-          <div className="flex w-11/12 items-center justify-around p-2">
-            <button
-              className="w-2/5 rounded-xl border-2 border-blue-700 bg-blue-400 p-2 hover:bg-blue-700"
-              onClick={() => Clear()}
-            >
-              <h1 className="text-white">Ok</h1>
-            </button>
-            <button
-              className="w-2/5 rounded-xl border-2 border-red-700 bg-red-400 p-2 hover:bg-red-700"
-              onClick={() => CancelBooking()}
-            >
-              <h1 className="text-white">Cancel</h1>
-            </button>
+
+          <div className="flex h-72 w-3/4 flex-col items-center justify-between overflow-hidden rounded-lg border-2 border-orange-500 bg-orange-100">
+            <div className="flex w-full items-center">
+              <div className="w-3/4 rounded-md bg-white p-3">
+                <h1 className="text-xl font-semibold text-black">
+                  {booking.barber}
+                </h1>
+                <p className="text-sm text-zinc-400">Master Barber</p>
+              </div>
+              <div className="ml-3 flex h-full flex-col items-end justify-around">
+                <FaTiktok color="#34345b" />
+                <FaInstagram color="#34345b" />
+              </div>
+            </div>
+
+            <div className="h-3/4 overflow-hidden border-black pt-6">
+              <img
+                src={booking.barberPicture}
+                className="h-full w-full"
+                alt="barber_picture_profile"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
           </div>
         </div>
       )}

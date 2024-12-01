@@ -4,6 +4,7 @@ import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css'
 
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -15,10 +16,13 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+
 export const metadata = {
   title: "Sodermalm Barbershop",
   description: "Sodermalm Barbershop",
 };
+
+
 
 export default function RootLayout({ children }) {
   return (

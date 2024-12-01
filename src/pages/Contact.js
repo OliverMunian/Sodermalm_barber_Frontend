@@ -18,7 +18,7 @@ function Contact() {
   const [subject, setSubject] = useState("");
   const [email, setEmail] = useState("");
   const [text, setText] = useState("");
-  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "http://localhost:4000";
 
   const fields = [name, lastName, email, text];
 
@@ -66,7 +66,7 @@ function Contact() {
     <body style="background-color: #f4f4f9">
       <div class="email-container" style="background-color: black">
       <div style="display: flex; justify-content: center">
-      <a href="https://sodermalm-baber-backend.vercel.app/">
+      <a href="https://sodermalm-baber-backend.vercel.app /">
         <img class="logo" src="https://i.imgur.com/oij0l9R.png" alt="Logo" />
       </a>
     </div>

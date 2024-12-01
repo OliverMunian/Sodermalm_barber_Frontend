@@ -3,6 +3,7 @@ import styles from "../../styles/Home.module.css";
 import Head from "next/head";
 import Header from "./components/Header";
 import Home from "./components/Home";
+import About from "./components/About"
 import Image from "next/image";
 import BarberShop from "../../public/Assets/barber_shop.jpg";
 import Logo from "../../public/Assets/Logo_rectangle.png";
@@ -11,6 +12,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Profiles from "../pages/profiles";
+import Services from "./components/Services";
+import Team from "./components/Team";
+import Footer from "./components/Footer";
 //icons
 import { IoLocation } from "react-icons/io5";
 import { FaArrowCircleRight } from "react-icons/fa";
@@ -34,6 +38,10 @@ function index() {
       </Head>
       <ToastContainer />
       <Home />
+      <About/>
+      <Services/>
+      <Team/>
+      <Footer/>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 import Rudy from "../../../public/Assets/Barbers_Profiles/Rudy.jpg";
-import Esteban from "../../../public/Assets/Barbers_Profiles/Esteban.jpg";
 import Wallpaper from "../../../public/Assets/wallpaper.jpg";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -13,6 +12,7 @@ import { motion } from "framer-motion";
 import { ToastContainer, toast } from "react-toastify";
 import dayjs from "dayjs";
 //Icons
+import { MdSwipeDown } from "react-icons/md";
 import { MdSwipeLeft } from "react-icons/md";
 import { TbHandClick } from "react-icons/tb";
 import { IoPlaySkipForwardCircleSharp } from "react-icons/io5";
@@ -38,7 +38,7 @@ function Barber(props) {
   const [subscribe, setSubscribe] = useState(false);
   const [date, setDate] = useState(null);
   const [slotSelected, setSlotSelected] = useState(null);
-  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "http://localhost:4000";
   const [barberProfile, setBarberProfile] = useState([]);
   const [daysOff, setDaysOff] = useState([]);
   let daySelected = date;
@@ -78,12 +78,11 @@ function Barber(props) {
           style={{ overflow: "hidden" }}
         >
           <div
-            className="relative flex h-52 w-52 items-center justify-center overflow-hidden"
+            className="relative flex h-52 w-44 items-center justify-center overflow-hidden rounded-lg max-md:h-44 max-md:w-40"
             style={{
-              borderRadius: "50%",
-              border: selected == i ? "4px solid green" : "3px solid white",
+              border: selected == i ? "3px solid green" : "3px solid white",
               backgroundColor:
-                selected === i ? "rgba(0, 255, 0, 0.1)" : "transparent",
+                selected === i ? "rgba(0, 255, 0, 0.2)" : "transparent",
             }}
             // onTouchStart={() => setHover(i)}
             // onTouchEnd={() => toggleChoice(i, data)}
@@ -98,6 +97,17 @@ function Barber(props) {
                 objectFit: "cover",
               }}
             />
+            <div className="absolute flex h-full w-full flex-col items-start justify-end">
+              <div
+                className="w-full"
+                style={{ borderBottom: "2px #f3bd7f solid" }}
+              >
+                <h1 className="pl-2 font-bold">{data.name}</h1>
+              </div>
+              <div className="w-full bg-orange-100">
+                <p className="pl-2 text-sm text-zinc-500">Master barber</p>
+              </div>
+            </div>
           </div>
         </div>
       </SwiperSlide>
@@ -185,18 +195,23 @@ function Barber(props) {
   }
 
   return (
-    <div className="relative m-2 flex h-full w-8/12 items-center justify-center max-sm:w-10/12">
+    <div className="flex w-full items-center justify-start max-md:justify-center">
       {!nextForm && (
-        <div className="flex size-full h-4/5 flex-col items-center justify-center rounded-3xl bg-black p-2 max-lg:h-full">
+        <div
+          className="flex h-96 w-96 flex-col items-center justify-center rounded-3xl p-2 backdrop-blur-md max-md:h-80 max-md:w-80"
+          style={{ border: "1px solid white" }}
+        >
           <div className="mb-5 flex flex-col items-center">
             <div className="flex items-center text-center">
-              <p className="italic">
+              <p className="italic max-md:text-sm">
                 Swipe left or right to choose your barber
               </p>
               <MdSwipeLeft className="ml-3" size={20} />
             </div>
             <div className="flex items-center text-center">
-              <p className="italic">Click to select your barber</p>
+              <p className="italic max-md:text-sm">
+                Click to select your barber
+              </p>
               <TbHandClick className="ml-3" size={20} />
             </div>
           </div>
@@ -222,12 +237,12 @@ function Barber(props) {
 
           {barberChoosen.name ? (
             <div className="mt-4 flex flex-col items-center justify-center">
-              <h2>
+              {/* <h2>
                 You've selected{" "}
                 <span className="font-bold">{barberChoosen.name}</span>
-              </h2>
+              </h2> */}
               <div
-                className="mt-3 pb-5 hover:cursor-pointer"
+                className="hover:cursor-pointer"
                 onClick={() => {
                   setNextForm(true);
                   setScheduleForm(true);
@@ -243,11 +258,10 @@ function Barber(props) {
           ) : (
             <div>
               <button
-                className="m-3 flex w-11/12 items-center justify-center rounded-xl border-2 border-red-500 p-2 font-semibold hover:bg-red-800"
+                className="m-3 flex w-11/12 items-center justify-center rounded-xl bg-orange-300 p-2 font-semibold hover:bg-orange-500"
                 onClick={props.onCancel}
               >
-                <p className="text-red-500">Cancel</p>{" "}
-                <MdCancel className="ml-2 text-red-500" size={20} />
+                <p className="text-white">Cancel</p>{" "}
               </button>
             </div>
           )}
@@ -255,11 +269,17 @@ function Barber(props) {
       )}
 
       {nextForm && (
-        <div className="flex w-full items-center rounded-3xl bg-black max-xl:overflow-y-scroll max-lg:h-full max-lg:flex-col">
-          <div className="my-2 flex flex-col items-center justify-center p-6">
+        <div
+          className="flex items-center rounded-3xl p-2 backdrop-blur-md max-lg:w-full max-lg:justify-around max-lg:overflow-y-scroll max-md:h-80 max-md:flex-col"
+          style={{ border: "1px solid white" }}
+        >
+          <div className="my-2 flex flex-col items-center justify-center">
             <div
-              className="h-36 w-36 overflow-hidden rounded-full border-2 border-green-800"
-              // style={{width: '40%'}}
+              className="relative flex h-44 w-36 items-center justify-center overflow-hidden rounded-lg"
+              style={{
+                border: "3px solid green",
+                backgroundColor: "rgba(0, 255, 0, 0.2)",
+              }}
             >
               <img
                 src={barberChoosen.src}
@@ -270,24 +290,37 @@ function Barber(props) {
                   objectFit: "cover",
                 }}
               />
+              <div className="bg-red absolute flex h-full w-full flex-col items-start justify-end">
+                <div
+                  className="w-full"
+                  style={{ borderBottom: "2px #f3bd7f solid" }}
+                >
+                  <h1 className="pl-2 font-bold">{barberChoosen.name}</h1>
+                </div>
+                <div className="w-full bg-orange-100">
+                  <p className="pl-2 text-sm text-zinc-500">Master barber</p>
+                </div>
+              </div>
             </div>
-            <p className="text-2xl font-semibold italic text-white">
+            {/* <p className="text-2xl font-semibold italic text-white">
               {barberChoosen.name}
-            </p>
+            </p> */}
             <div
               className="my-2 flex items-center hover:cursor-pointer"
               onClick={() => {
                 backChoiceBarber();
               }}
             >
-              <TbArrowBack size={20} />
-              <p className="text-center italic text-white">
+              <p className="text-center text-sm italic text-white">
                 Choose another barber
               </p>
+              <TbArrowBack size={20} />
             </div>
           </div>
 
-          <div className="m-3 flex w-full flex-col items-center justify-center">
+          <div
+            className={`max-md:w-full ${!scheduleForm && daySelected && !subscribe ? "w-full" : ""} ${subscribe ? "w-full" : ""}`}
+          >
             {!scheduleForm && daySelected && !subscribe && (
               <TimeSlots
                 date={daySelected}
@@ -299,14 +332,16 @@ function Barber(props) {
             )}
 
             {scheduleForm && (
-              <div className="flex flex-col items-center max-md:mt-6 max-md:pt-2">
-                <h2 className="text-2xl font-semibold italic">Choose a day</h2>
+              <div className="flex flex-col items-center overflow-y-scroll max-md:mt-6 max-md:pt-2">
+                <div className="hidden w-full max-md:flex max-md:items-center max-md:justify-center">
+                  <h1>Scroll drown and pick up a date</h1>
+                  <MdSwipeDown className="ml-2" />
+                </div>
                 <Reservation
                   pickDate={(date) => handleDateChange(date)}
                   daysOff={barberChoosen.daysOff}
                   // onCancel={() => cancelDate()}
                   onValidate={(params) => validateDate(params)}
-                  //
                 />
               </div>
             )}

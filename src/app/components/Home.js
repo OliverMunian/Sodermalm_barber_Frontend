@@ -34,13 +34,13 @@ function Home() {
   //   }
 
   return (
-    <div className="flex h-screen w-full flex-col items-center">
+    <div className="relative bg-barber-wallpaper flex h-screen w-full flex-col items-center bg-cover">
       <Header />
-      <div className="relative flex size-full items-center justify-center">
-        <div className={styles.imageBackground}></div>
 
-        <div className="flex h-full w-4/5 items-center justify-between max-md:w-11/12 max-lg:flex-col max-xl:overflow-y-scroll">
-          <div
+
+      <div className="flex flex-col h-full w-11/12 items-start">
+        <div className="flex items-start max-md:justify-center w-full">
+          {/* <div
             className="m-2.5 flex max-w-md flex-col items-center p-6 backdrop-blur-lg "
             style={{ borderRadius: "40px" }}
           >
@@ -84,40 +84,51 @@ function Home() {
             <div className="mt-4 hidden items-center font-semibold italic max-md:flex max-sm:flex-col max-sm:text-center max-sm:text-sm">
               Scroll down to book an appointment <MdSwipeUp className="ml-2" />
             </div>
-          </div>
+          </div> */}
 
           {choice == null && (
-            <div className="relative m-2.5 flex w-2/5 items-center justify-center rounded-2xl p-6 max-lg:w-3/5">
-              <div
-                className={styles.logoWallpaper}
-                style={{ borderRadius: "15px" }}
-              ></div>
-
-              <div className="flex w-4/5 flex-col items-center justify-center rounded-xl p-3 backdrop-blur-md">
-                <h1 className="text-center text-xl font-bold text-black max-lg:text-sm">
-                  Make your choice
-                </h1>
-                <button
-                  className="m-3 w-4/5 rounded-xl border-2 border-black p-3 text-center text-black max-lg:text-sm max-sm:text-xs md:hover:bg-black md:hover:text-white"
-                  onClick={() => setChoice("APT")}
-                >
-                  Book an appointment
-                </button>
-                <button
-                  className="m-3 w-4/5 rounded-xl border-2 border-black p-3 text-black max-lg:text-sm max-sm:text-xs md:hover:bg-black md:hover:text-white"
-                  onClick={() => setChoice("RES")}
-                >
-                  Check your reservation
-                </button>
-              </div>
+            <div
+              className="flex h-96 w-96 flex-col items-center justify-evenly rounded-2xl p-6 backdrop-blur-sm max-lg:h-80 max-lg:max-w-80"
+              style={{ border: "1px solid white" }}
+            >
+              <button
+                className="w-4/5 rounded-xl bg-orange-300 p-3 text-center text-black max-lg:text-sm max-sm:text-xs md:hover:bg-orange-500"
+                onClick={() => setChoice("APT")}
+              >
+                Make an appointment
+              </button>
+              <button
+                className="w-4/5 rounded-xl border-2 border-white p-3 text-white max-lg:text-sm max-sm:text-xs md:hover:bg-white md:hover:text-black"
+                onClick={() => setChoice("RES")}
+              >
+                Check your reservation
+              </button>
             </div>
           )}
 
           {choice == "APT" && <Barber onCancel={() => setChoice(null)} />}
           {choice == "RES" && <CheckBooking onCancel={() => setChoice(null)} />}
         </div>
+
+        <div className="flex w-full md:h-full items-end  max-sm:w-full justify-between max-md:flex-col-reverse max-md:justify-end max-md:mt-10">
+          <div className="w-2/6 p-2 flex items-end text-white  max-md:w-full max-md:items-start md:h-full">
+            <p className="text-sm max-md:text-center">
+              Step into our shop, take a seat, and let our expert barbers give
+              you the look you’ve been searching for. Whether it’s a sharp cut,
+              a clean shave, or a beard tune-up, we’re here to make sure you
+              look and feel your best.
+              <br />
+              More than just a cut, it’s an experience !
+            </p>
+          </div>
+          <div>
+            <h1 className="text-right text-6xl font-bold max-lg:text-5xl max-md:text-5xl max-sm:text-5xl font-chakrapetch">
+              WHEN STYLE <br />
+              MEETS PRECISION
+            </h1>
+          </div>
+        </div>
       </div>
-      <Footer/>
     </div>
   );
 }

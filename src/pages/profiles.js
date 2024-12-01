@@ -26,7 +26,7 @@ function Profiles() {
   const fileInputRef = useRef(null);
   const [imageSrc, setImageSrc] = useState(null);
   const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 1 });
-  const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
+  const BACKEND_ADRESS = "http://localhost:4000";
   const [username, setUsername] = useState("");
   const [id, setId] = useState("");
   const [mail, setMail] = useState("");
@@ -36,6 +36,7 @@ function Profiles() {
   const [appointment, setAppointment] = useState([]);
   const [selectedDaysOff, setSelectedDaysOff] = useState([]);
   const daysOff = ["SÖ", "MÅ", "TI", "ON", "TO", "FR", "LÖ"];
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   useEffect(() => {
     const isConnected = localStorage.getItem("isConnected");
@@ -107,7 +108,6 @@ function Profiles() {
           setConnected(true);
           setUsername(data.data.username);
           setImageSrc(data.data.profilePicture);
-          setImageSrc(data.data.profilePicture);
           setId(data.data._id);
           localStorage.setItem("isConnected", "true");
           localStorage.setItem("username", data.data.username);
@@ -139,46 +139,60 @@ function Profiles() {
 
   function SignUp(e) {
     e.preventDefault();
-    fetch(`${BACKEND_ADRESS}/users/signup`, {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        username: username,
-        email: mail,
-        password: password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          toast.success("Your Profile has been created", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
-          setCreate(false);
-          setUsername("");
-          setMail("");
-          setPassword("");
-        } else {
-          console.log("impossible de creer l'utilisateur");
-          toast.error("Oops ! Impossible to create your profile", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        }
+    if (!emailRegex.test(mail)) {
+      toast.error("Your email is not correct", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
       });
+      setMail("");
+    } else {
+      fetch(`${BACKEND_ADRESS}/users/signup`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          username: username,
+          email: mail,
+          password: password,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.result) {
+            toast.success("Your Profile has been created", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+            setCreate(false);
+            setUsername("");
+            setMail("");
+            setPassword("");
+          } else {
+            console.log("impossible de creer l'utilisateur");
+            toast.error("Oops ! Impossible to create your profile", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          }
+        });
+    }
   }
 
   const handleFileChange = (e) => {
@@ -221,8 +235,6 @@ function Profiles() {
     });
   }
 
-  // console.log(selectedDaysOff)
-
   function updateDaysOff() {
     fetch(`${BACKEND_ADRESS}/users/${id}`, {
       method: "PUT",
@@ -261,10 +273,7 @@ function Profiles() {
   }
 
   const dayOffDisplay = daysOff.map((days, i) => {
-    console.log("log i : ", i);
     const isSelected = selectedDaysOff.includes(i);
-    console.log("isSelected: ", isSelected);
-    console.log("selectedDaysOff: ", selectedDaysOff);
     return (
       <div
         key={i}
@@ -277,54 +286,44 @@ function Profiles() {
   });
 
   return (
-    <div>
+    <div className="bg-barber-wallpaper flex h-screen flex-col bg-cover">
       <Header />
       <ToastContainer />
       {!create && !connected && (
-        <div
-          className={style.imageBackground}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <div className="flex w-3/6 flex-col items-center rounded-3xl bg-black p-6 max-lg:w-4/5">
-            <div className="w-5/12 rounded-2xl border-2 border-black bg-black p-2">
-              <Image src={Logo} alt="Logo_sodermalm" />
-            </div>
-            <div className="flex flex-col items-center">
-              <h1 className="text-center text-2xl italic text-white max-md:text-lg">
+        <div className="flex h-full w-full px-3 max-lg:flex-col-reverse max-lg:items-end max-lg:justify-center">
+          <div className="flex w-3/4 flex-col items-center justify-center p-6 max-lg:w-full">
+            <div className="flex w-3/4 flex-col items-center">
+              <h1 className="text-center text-sm italic text-white">
                 Please login to access to your profile
               </h1>
+
               <form className="flex w-full flex-col items-center">
                 <input
                   placeholder="Email"
                   type="email"
-                  className="m-2 w-full rounded-xl p-4 text-black"
+                  className="m-2 w-full rounded-xl border-2 border-white p-4 text-black shadow-xl outline-none"
                   value={mail}
                   onChange={(e) => setMail(e.target.value)}
                 />
                 <input
                   placeholder="Password"
-                  className="m-2 w-full rounded-xl p-4 text-black max-md:m-1"
+                  className="m-2 w-full rounded-xl border-2 border-white p-4 text-black shadow-xl outline-none"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </form>
-              <p className="italic text-cyan-300 underline hover:cursor-pointer hover:text-cyan-600 max-md:text-lg">
+              <p className="italic text-orange-300 underline hover:cursor-pointer hover:text-orange-500 max-md:text-lg">
                 Forgotten password ?
               </p>
               <p
-                className="italic text-cyan-300 underline hover:cursor-pointer hover:text-cyan-600 max-md:text-lg"
+                className="italic text-orange-300 underline hover:cursor-pointer hover:text-orange-500 max-md:text-lg"
                 onClick={() => setCreate(true)}
               >
                 Create an account
               </p>
               <button
-                className={`max-sm:hover:none mt-4 flex w-6/12 justify-center rounded-xl p-4 ${mail && password ? "border-2 border-green-500 hover:bg-green-700" : "border-2 border-gray-400 hover:cursor-default"}`}
+                className={`max-sm:hover:none mt-4 flex w-6/12 justify-center rounded-xl p-4 ${mail && password ? "bg-green-500 hover:bg-green-800" : "border-2 border-gray-400 hover:cursor-default"}`}
                 onClick={(e) => {
                   e.preventDefault();
                   SignIn();
@@ -338,156 +337,123 @@ function Profiles() {
               </button>
             </div>
           </div>
+
+          <div className="flex items-end justify-end">
+            <h1 className="font-chakrapetch text-right text-6xl font-bold uppercase text-white max-lg:text-5xl">
+              Welcome Back to Your Barber Space
+            </h1>
+          </div>
         </div>
       )}
+
       {create && (
-        <div
-          className={style.imageBackground}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <div className="max-lg:w-4/ relative mt-4 flex w-3/4 flex-col items-center overflow-hidden rounded-3xl p-10 max-md:mt-16">
-            <div className={style.logoWallpaper}></div>
+        <div className="flex h-full w-full px-3 max-lg:flex-col-reverse max-lg:items-end max-lg:justify-center">
+          <div className="flex w-3/4 flex-col items-center justify-center max-lg:w-full">
+            <div className="w-2/3 max-md:w-full">
+              <h1 className="text-center text-sm italic text-white max-md:text-lg">
+                Complete informations below
+              </h1>
 
-            <div className="flex max-md:flex-col max-md:items-center">
-              <div className="flex w-1/3 items-center max-md:m-2 max-md:w-6/12">
-                <Image
-                  src={Logo}
-                  alt="Logo_sodermalm"
-                  className="rounded-xl bg-black p-4"
+              <form className="flex w-full flex-col items-center">
+                <input
+                  placeholder="Your name"
+                  type="text"
+                  className="m-2 w-full rounded-xl p-4 text-black shadow-xl outline-none"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
-              </div>
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  className="m-2 w-full rounded-xl p-4 text-black shadow-xl outline-none"
+                  value={mail}
+                  onChange={(e) => setMail(e.target.value)}
+                />
+                <input
+                  type="Password"
+                  placeholder="Your password"
+                  className="m-2 w-full rounded-xl p-4 text-black shadow-xl outline-none"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </form>
 
-              <div className="mx-3 w-2/3 rounded-2xl border-2 border-gray-400 bg-white p-4 max-md:w-full">
-                <h1 className="text-2xl font-semibold text-black max-md:text-lg">
-                  Create your account
-                </h1>
-                <form className="flex w-full flex-col items-center">
-                  <div className="w-full">
-                    <p className="text-gray-400">Full Name:</p>
-                    <div className="flex items-center border-2 px-2 text-gray-400">
-                      <input
-                        placeholder="Ex: John Doe"
-                        type="text"
-                        className="w-full p-2 text-black outline-none placeholder:text-gray-300 max-md:p-3"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                      />
-                      <CgProfile />
-                    </div>
-                  </div>
-
-                  <div className="w-full">
-                    <p className="text-gray-400">Your Email:</p>
-                    <div className="flex items-center border-2 px-2 text-gray-400">
-                      <input
-                        type="email"
-                        className="w-full p-2 text-black outline-none placeholder:text-gray-300 max-md:p-3"
-                        value={mail}
-                        onChange={(e) => setMail(e.target.value)}
-                      />
-                      <MdAlternateEmail />
-                    </div>
-                  </div>
-
-                  <div className="flex w-full flex-col text-gray-400">
-                    <p className="text-gray-400">Your password:</p>
-                    <div className="flex items-center border-2 px-2">
-                      <input
-                        type="Password"
-                        className="w-full p-2 text-black outline-none placeholder:text-gray-300 max-md:p-3"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                      <FaLockOpen />
-                    </div>
-                  </div>
-                </form>
-                <div className="flex w-64 justify-between">
-                  <button
-                    className="mt-4 flex justify-center rounded-xl border-2 border-red-500 p-3 text-red-500 hover:bg-red-700 hover:text-white"
-                    onClick={() => setCreate(false)}
+              <div className="flex w-64 justify-between">
+                <button
+                  className="flex justify-center rounded-xl bg-orange-300 p-3 text-white hover:bg-orange-500"
+                  onClick={() => setCreate(false)}
+                >
+                  <p>Cancel</p>
+                </button>
+                <button
+                  className={`flex justify-center rounded-xl p-3 ${username && mail && password ? "bg-green-500 hover:bg-green-700" : "border-2 border-gray-400 text-zinc-400 hover:cursor-default"}`}
+                  onClick={(e) => {
+                    username && mail && password ? SignUp(e) : undefined;
+                  }}
+                >
+                  <p
+                    className={`${mail && password ? "text-white" : "text-gray-400"}`}
                   >
-                    <p>Cancel</p>
-                  </button>
-                  <button
-                    className={`mt-4 flex justify-center rounded-xl p-3 ${username && mail && password ? "border-2 border-blue-500 bg-blue-500 hover:bg-blue-700" : "border-2 border-gray-400 text-zinc-400 hover:cursor-default"}`}
-                    onClick={(e) => {
-                      username && mail && password ? SignUp(e) : undefined;
-                    }}
-                  >
-                    <p
-                      className={`${mail && password ? "text-white" : "text-gray-400"}`}
-                    >
-                      Create account
-                    </p>
-                  </button>
-                </div>
+                    Create account
+                  </p>
+                </button>
               </div>
             </div>
+          </div>
+          <div className="flex items-end justify-end">
+            <h1 className="font-chakrapetch text-right text-6xl font-bold uppercase text-white max-lg:text-5xl">
+              Welcome in the barber team
+            </h1>
           </div>
         </div>
       )}
 
       {connected && (
         <div className="relative flex h-screen items-center justify-center overflow-hidden">
-          <div className={style.logoWallpaper}></div>
           <div
-            className="mt-2 h-full overflow-y-scroll rounded-2xl border-2 border-zinc-300"
-            style={{ width: "90%", backgroundColor: "#141218" }}
+            className="mt-2 h-5/6 overflow-y-scroll rounded-2xl border-2 border-zinc-300 w-11/12"
+            style={{backgroundColor: "#141218" }}
           >
             <div className="flex flex-col items-center p-3">
               <div className="flex w-full items-center justify-around p-3 max-md:flex-col">
-                <div className="w-40 max-md:m-2 max-md:w-2/5">
-                  <Image
-                    src={Logo}
-                    alt="Logo_sodermalm"
-                    className="rounded-xl bg-black p-4"
-                  />
-                </div>
                 <div className="flex w-full items-center justify-between">
                   <div className="flex w-11/12 flex-col items-center justify-between">
-                    <h1 className="text-center text-3xl font-bold text-white max-lg:text-xl">
+                    <h1 className="text-center text-6xl font-bold text-white">
                       Hello {username}
                     </h1>
                     <p className="max-lg:text-md text-center italic text-zinc-400">
                       Happy to see you again !
                     </p>
                     <button
-                      className="mt-5 flex w-2/5 items-center justify-center rounded-2xl border-2 p-2"
+                      className="flex w-2/5 items-center justify-center rounded-2xl bg-orange-300 p-3 hover:bg-orange-500"
                       onClick={() => LogOut()}
                     >
-                      <h1>Disconnect</h1>
-                      <VscDebugDisconnect className="ml-2" />
+                      <h1 className="font-bold">Disconnect</h1>
                     </button>
                   </div>
                   <div className="flex flex-col items-center">
                     <div
-                      className="flex h-32 w-32 flex-col items-center justify-center overflow-hidden rounded-full border-2 border-zinc-400 hover:cursor-pointer max-md:h-20 max-md:w-20"
+                      className="relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-2 border-zinc-400 hover:cursor-pointer max-md:h-20 max-md:w-20"
                       onClick={() => fileInputRef.current.click()}
                     >
-                      {imageSrc ? (
-                        // Utilisation de ReactCrop pour l'aperçu et le découpage
+                      {!imageSrc ? (
+                        <div className="flex h-full w-full flex-col items-center justify-center bg-black p-3">
+                          <MdAddAPhoto size={25} />
+                          <p className="text-center text-xs italic text-white">
+                            Add your profile picture
+                          </p>
+                        </div>
+                      ) : (
                         <img
                           src={`${BACKEND_ADRESS}/assets${imageSrc}`}
-                          alt="Profile"
+                          alt="picture_profile"
                           style={{
                             width: "100%",
                             height: "100%",
                             objectFit: "cover",
                           }}
+                          className="bg-orange-300 text-transparent"
                         />
-                      ) : (
-                        <>
-                          <MdAddAPhoto size={35} />
-                          <p className="text-center text-sm italic text-white">
-                            Add your profile picture
-                          </p>
-                        </>
                       )}
                     </div>
 
