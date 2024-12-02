@@ -77,7 +77,7 @@ function Barber(props) {
           style={{ overflow: "hidden" }}
         >
           <div
-            className="relative flex h-52 w-44 items-center justify-center overflow-hidden rounded-lg max-md:h-44 max-md:w-40"
+            className={"relative flex h-52 w-44 items-center justify-center overflow-hidden rounded-lg max-md:h-44 max-md:w-40 backdrop-blur-lg"}
             style={{
               border: selected == i ? "3px solid green" : "3px solid white",
               backgroundColor:

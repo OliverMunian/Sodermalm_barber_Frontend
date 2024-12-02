@@ -11,6 +11,9 @@ import BuzzcutMidFade from "../../../public/Assets/Haircut_models/Buzzcut_MidFad
 //icons
 import { FaQuoteLeft } from "react-icons/fa6";
 import { FaQuoteRight } from "react-icons/fa6";
+import { BsArrowRightCircle } from "react-icons/bs";
+import { BsArrowLeftCircle } from "react-icons/bs";
+
 
 function Services() {
   const haircuts = [
@@ -83,7 +86,7 @@ function Services() {
   });
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-around  bg-orange-100 py-5">
+    <div className="flex h-screen w-full flex-col items-center justify-around bg-orange-100 py-5" id='Services'>
       <div className="flex w-11/12 justify-between max-lg:flex-col">
         <div className="flex w-1/4 flex-col max-xl:w-2/4 max-lg:w-full">
           <h1 className="font-chakrapetch text-5xl font-bold uppercase text-black">
@@ -117,21 +120,25 @@ function Services() {
         </div>
       </div>
 
-      <div className="flex w-11/12 items-start justify-between max-lg:h-2/4 max-sm:flex-col">
-        <div className="flex h-full w-2/5 items-center justify-center max-sm:w-full">
-          <div className="flex items-center flex-col justify-center h-64 w-64 rounded-xl bg-orange-300 p-3 max-lg:h-60 max-lg:w-60 max-sm:h-28 max-sm:w-full">
-            <div className="w-full flex justify-start">
-              <FaQuoteLeft color="black" size={16} />
-            </div>
-            <div>
-              <p className="text-black">
-                It is always to be treat by real professionnals who know how
-                execute exactly what you asked for
-              </p>
-            </div>
-            <div className="w-full flex justify-end">
-              {" "}
-              <FaQuoteRight color="black" size={16} />
+      <div className="flex w-11/12 items-start justify-between max-lg:h-2/4 max-lg:pt-2 max-sm:flex-col">
+        <div className="flex h-full w-2/6 flex-col items-center justify-center rounded-lg bg-orange-300 p-3 max-sm:w-full">
+          <div className="flex w-full justify-start">
+            <FaQuoteLeft color="black" size={16} />
+          </div>
+          <div>
+            <p className="text-black">
+              It is always a pleasure to be treat by real professionals who know
+              how execute exactly what you asked for !
+            </p>
+          </div>
+          <div className="flex w-full justify-end">
+            <FaQuoteRight color="black" size={16} />
+          </div>
+          <div className="flex w-full items-center justify-between">
+            <p className="italic text-black"> John.D</p>
+            <div className="flex w-1/4">
+              <BsArrowLeftCircle size={30} color="black" className="m-1 hover:cursor-pointer" />
+              <BsArrowRightCircle size={30} color="black" className="m-1 hover:cursor-pointer" />
             </div>
           </div>
         </div>

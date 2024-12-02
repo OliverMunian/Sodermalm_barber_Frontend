@@ -1,3 +1,4 @@
+'use client'
 import { useState } from "react";
 import Image from "next/image";
 //images
@@ -17,21 +18,21 @@ function Footer() {
       <div className="flex w-11/12 items-start py-5">
         <div className="w-1/3 mt-2">
           <Image src={Logo} className="w-52 rounded-2xl" alt="Logo_barber" />
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 max-md:text-xs">
             Blekingegatan 59, 11662 Stockholm
           </p>
-          <p className="text-sm text-gray-600">+4670-041 98 19</p>
+          <p className="text-sm text-gray-600 max-md:text-xs">+4670-041 98 19</p>
         </div>
         <div className="flex w-1/3 flex-col items-start justify-center max-md:items-center">
           <h1 className="font-semibold text-black">Menu</h1>
-          <p className="mt-2 text-sm text-zinc-600">Home</p>
-          <p className="text-sm text-zinc-600">Services</p>
-          <p className="text-sm text-zinc-600">About</p>
+          <p className="mt-2 text-sm text-zinc-600 max-md:text-xs max-md:mt-0">Home</p>
+          <p className="text-sm text-zinc-600 max-md:text-xs">Services</p>
+          <p className="text-sm text-zinc-600 max-md:text-xs">About</p>
         </div>
         <div className="flex w-1/3 flex-col max-md:items-end">
           <h1 className="font-semibold text-black">Operational</h1>
-          <p className="text-sm text-zinc-600  max-md:text-right">Mon-Fri: 10:00-20:00</p>
-          <p className="text-sm text-zinc-600 max-md:text-right">Sat-Sun: 11:00-19:00</p>
+          <p className="mt-2 text-sm text-zinc-600  max-md:text-right max-md:text-xs max-md:mt-0">Mon-Fri: 10:00-20:00</p>
+          <p className="text-sm text-zinc-600 max-md:text-right max-md:text-xs">Sat-Sun: 11:00-19:00</p>
         </div>
       </div>
       <div className="flex w-11/12 items-center justify-between">

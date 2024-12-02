@@ -243,6 +243,7 @@ function About() {
     <div
       className="flex h-screen w-full max-lg:flex-col"
       style={{ backgroundColor: "#47403c" }}
+      id="About"
     >
       <div className="flex w-1/3 items-center justify-center max-lg:mt-10 max-lg:h-2/4 max-lg:w-full max-lg:justify-around">
         <div className="flex h-full w-11/12 flex-col items-center justify-around">

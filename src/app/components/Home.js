@@ -1,7 +1,5 @@
 "use client";
 import styles from "../../../styles/Home.module.css";
-import Header from "./Header";
-import Footer from "./Footer";
 import Image from "next/image";
 import BarberShop from "../../../public/Assets/barber_shop.jpg";
 import Logo from "../../../public/Assets/Logo_rectangle.png";
@@ -11,6 +9,12 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Barber from "./Barber";
 import CheckBooking from "./checkBooking";
+//components
+import Header from "./Header";
+import About from "./About";
+import Services from "./Services";
+import Team from "./Team";
+import Footer from "./Footer";
 //icons
 import { IoLocation } from "react-icons/io5";
 import { FaArrowCircleRight } from "react-icons/fa";
@@ -34,58 +38,10 @@ function Home() {
   //   }
 
   return (
-    <div className="relative bg-barber-wallpaper flex h-screen w-full flex-col items-center bg-cover">
+    <div className="bg-barber-wallpaper relative flex h-screen w-full flex-col items-center bg-cover">
       <Header />
-
-
-      <div className="flex flex-col h-full w-11/12 items-start">
-        <div className="flex items-start max-md:justify-center w-full">
-          {/* <div
-            className="m-2.5 flex max-w-md flex-col items-center p-6 backdrop-blur-lg "
-            style={{ borderRadius: "40px" }}
-          >
-            <div className="flex w-4/5 flex-col items-center justify-center">
-              <Image src={Logo} alt="Barber Shop Logo" />
-            </div>
-
-            <div className="flex w-full items-center justify-start py-2 text-xl text-white max-md:justify-center max-md:text-sm">
-              <IoLocation size={30} />
-              <p className="">Blekingegatan 59, 116 62 Stockholm</p>
-            </div>
-
-            <div className="flex items-center justify-start p-2 max-md:justify-center">
-              <div style={{ width: "7%" }}>
-                <Image src={SL} alt="SL_logo_tunnelbanan" className="rounded-full" />
-              </div>
-              <div>
-                <h2 className="ml-2 font-semibold text-white max-md:text-sm">
-                  SKANSTULL
-                </h2>
-              </div>
-            </div>
-
-            <div className="flex w-full items-center justify-start p-2 max-md:justify-center">
-              <FaPhoneAlt size={20} color={"white"} />
-              <p className="ml-2 text-xl text-white max-md:text-sm">
-                070-041 98 19
-              </p>
-            </div>
-
-            <div className="p-2 text-white">
-              <p className="text-base/6 italic max-md:text-center max-md:text-sm">
-                Step into our shop, take a seat, and let our expert barbers give
-                you the look you’ve been searching for. Whether it’s a sharp
-                cut, a clean shave, or a beard tune-up, we’re here to make sure
-                you look and feel your best.
-                <br />
-                More than just a cut, it’s an experience!
-              </p>
-            </div>
-            <div className="mt-4 hidden items-center font-semibold italic max-md:flex max-sm:flex-col max-sm:text-center max-sm:text-sm">
-              Scroll down to book an appointment <MdSwipeUp className="ml-2" />
-            </div>
-          </div> */}
-
+      <div className="flex h-full w-11/12 flex-col items-start">
+        <div className="flex w-full items-start max-md:justify-center">
           {choice == null && (
             <div
               className="flex h-96 w-96 flex-col items-center justify-evenly rounded-2xl p-6 backdrop-blur-sm max-lg:h-80 max-lg:max-w-80"
@@ -110,8 +66,8 @@ function Home() {
           {choice == "RES" && <CheckBooking onCancel={() => setChoice(null)} />}
         </div>
 
-        <div className="flex w-full md:h-full items-end  max-sm:w-full justify-between max-md:flex-col-reverse max-md:justify-end max-md:mt-10">
-          <div className="w-2/6 p-2 flex items-end text-white  max-md:w-full max-md:items-start md:h-full">
+        <div className="flex w-full items-end justify-between max-md:mt-10 max-md:flex-col-reverse max-md:justify-end max-sm:w-full md:h-full">
+          <div className="flex w-2/6 items-end p-2 text-white max-md:w-full max-md:items-start md:h-full">
             <p className="text-sm max-md:text-center">
               Step into our shop, take a seat, and let our expert barbers give
               you the look you’ve been searching for. Whether it’s a sharp cut,
@@ -122,7 +78,7 @@ function Home() {
             </p>
           </div>
           <div>
-            <h1 className="text-right text-6xl font-bold max-lg:text-5xl max-md:text-5xl max-sm:text-5xl font-chakrapetch">
+            <h1 className="font-chakrapetch text-right text-6xl font-bold max-lg:text-5xl max-md:text-5xl max-sm:text-5xl">
               WHEN STYLE <br />
               MEETS PRECISION
             </h1>

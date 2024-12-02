@@ -509,7 +509,7 @@ function Profiles() {
           </div>
         </div>
       )}
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
