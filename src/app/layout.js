@@ -32,6 +32,7 @@ export default function RootLayout({ children }) {
           name="description"
           content="Welcome to Sodermalm barbershop"
         />
+        <link rel="preload" as="image" href="/Assets/wallpaper.jpg"></link>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
