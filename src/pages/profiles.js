@@ -24,6 +24,7 @@ import { VscDebugDisconnect } from "react-icons/vsc";
 
 function Profiles() {
   const fileInputRef = useRef(null);
+  const inputOTPRef = useRef(null);
   const [imageSrc, setImageSrc] = useState(null);
   const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 1 });
   const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
@@ -35,6 +36,12 @@ function Profiles() {
   const [connected, setConnected] = useState(false);
   const [appointment, setAppointment] = useState([]);
   const [selectedDaysOff, setSelectedDaysOff] = useState([]);
+  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [activeOTP, setActiveOTP] = useState(0);
+  const [form, setForm] = useState(false);
+
+  let currentOTPIndex = 0;
+  const code = 534998;
   const daysOff = ["SÖ", "MÅ", "TI", "ON", "TO", "FR", "LÖ"];
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -75,6 +82,14 @@ function Profiles() {
       }
     }
   }, [id]);
+
+  useEffect(() => {
+    inputOTPRef.current?.focus();
+    if (parseInt(otp.join(""), 10) === code) {
+      setForm(true);
+
+    }
+  }, [activeOTP, otp]);
 
   function LogOut() {
     setConnected(false);
@@ -272,12 +287,41 @@ function Profiles() {
       });
   }
 
+  function handleChange(e, index) {
+    const value = e.target.value;
+    const newOTP = [...otp];
+
+    // Ajoute uniquement le dernier caractère entré
+    newOTP[index] = value.slice(-1);
+    setOtp(newOTP);
+    if (value) {
+      if (index < otp.length - 1) {
+        setActiveOTP(index + 1);
+      }
+    }
+  }
+
+  function handleKeyDown(e, index) {
+    if (e.key === "Backspace") {
+      const newOTP = [...otp];
+
+      if (otp[index] !== "") {
+        // Efface le caractère actuel
+        newOTP[index] = "";
+        setOtp(newOTP);
+      } else if (index > 0) {
+        // Passe au champ précédent si le champ actuel est déjà vide
+        setActiveOTP(index - 1);
+      }
+    }
+  }
+
   const dayOffDisplay = daysOff.map((days, i) => {
     const isSelected = selectedDaysOff.includes(i);
     return (
       <div
         key={i}
-        className={`mx-2 flex h-10 w-10 items-center justify-center rounded-full border-2 p-2 hover:cursor-pointer ${isSelected ? "bg-white" : "bg-transparent"}`}
+        className={`mx-2 flex h-10 w-10 items-center justify-center rounded-full border-2 p-2 hover:cursor-pointer max-sm:m-2 ${isSelected ? "bg-white" : "bg-transparent"}`}
         onClick={() => toggleDaysOff(i)}
       >
         <h1 style={{ color: isSelected ? "#141218" : "white" }}>{days}</h1>
@@ -348,58 +392,97 @@ function Profiles() {
 
       {create && (
         <div className="flex h-full w-full px-3 max-lg:flex-col-reverse max-lg:items-end max-lg:justify-center">
-          <div className="flex w-3/4 flex-col items-center justify-center max-lg:w-full">
-            <div className="w-2/3 max-md:w-full">
+          {!form && (
+            <div className="flex w-3/4 flex-col items-center justify-center max-lg:w-full">
               <h1 className="text-center text-sm italic text-white max-md:text-lg">
-                Complete informations below
+                Please enter the code
               </h1>
+              <div className="flex">
+                {otp.map((_, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="m-2 flex h-[50px] w-[50px] items-center justify-center"
+                    >
+                      <input
+                        ref={index === activeOTP ? inputOTPRef : null}
+                        type="number"
+                        onChange={(e) => handleChange(e, index)}
+                        onKeyDown={(e) => handleKeyDown(e, index)}
+                        onFocus={() => setActiveOTP(index)}
+                        className="spin-button-none h-full w-full rounded-xl border-[0.85px] border-black text-center text-lg font-semibold text-black outline-none"
+                        value={otp[index]}
+                      />
+                      {index == otp.length - 1 ? null : (
+                        <span className="border-gray-400" />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              <button
+                className="flex justify-center rounded-xl bg-orange-300 p-3 text-white hover:bg-orange-500"
+                onClick={() => setCreate(false)}
+              >
+                <p>Cancel</p>
+              </button>
+            </div>
+          )}
+          {form == true && (
+            <div className="flex w-3/4 flex-col items-center justify-center max-lg:w-full">
+              <div className="w-2/3 max-md:w-full">
+                <h1 className="text-center text-sm italic text-white max-md:text-lg">
+                  Complete informations below
+                </h1>
 
-              <form className="flex w-full flex-col items-center">
-                <input
-                  placeholder="Your name"
-                  type="text"
-                  className="m-2 w-full rounded-xl p-4 text-black shadow-xl outline-none"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="m-2 w-full rounded-xl p-4 text-black shadow-xl outline-none"
-                  value={mail}
-                  onChange={(e) => setMail(e.target.value)}
-                />
-                <input
-                  type="Password"
-                  placeholder="Your password"
-                  className="m-2 w-full rounded-xl p-4 text-black shadow-xl outline-none"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </form>
+                <form className="flex w-full flex-col items-center">
+                  <input
+                    placeholder="Your name"
+                    type="text"
+                    className="m-2 w-full rounded-xl p-4 text-black shadow-xl outline-none"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                  <input
+                    type="email"
+                    placeholder="Your email"
+                    className="m-2 w-full rounded-xl p-4 text-black shadow-xl outline-none"
+                    value={mail}
+                    onChange={(e) => setMail(e.target.value)}
+                  />
+                  <input
+                    type="Password"
+                    placeholder="Your password"
+                    className="m-2 w-full rounded-xl p-4 text-black shadow-xl outline-none"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </form>
 
-              <div className="flex w-64 justify-between">
-                <button
-                  className="flex justify-center rounded-xl bg-orange-300 p-3 text-white hover:bg-orange-500"
-                  onClick={() => setCreate(false)}
-                >
-                  <p>Cancel</p>
-                </button>
-                <button
-                  className={`flex justify-center rounded-xl p-3 ${username && mail && password ? "bg-green-500 hover:bg-green-700" : "border-2 border-gray-400 text-zinc-400 hover:cursor-default"}`}
-                  onClick={(e) => {
-                    username && mail && password ? SignUp(e) : undefined;
-                  }}
-                >
-                  <p
-                    className={`${mail && password ? "text-white" : "text-gray-400"}`}
+                <div className="flex w-64 justify-between">
+                  <button
+                    className="flex justify-center rounded-xl bg-orange-300 p-3 text-white hover:bg-orange-500"
+                    onClick={() => setCreate(false)}
                   >
-                    Create account
-                  </p>
-                </button>
+                    <p>Cancel</p>
+                  </button>
+                  <button
+                    className={`flex justify-center rounded-xl p-3 ${username && mail && password ? "bg-green-500 hover:bg-green-700" : "border-2 border-gray-400 text-zinc-400 hover:cursor-default"}`}
+                    onClick={(e) => {
+                      username && mail && password ? SignUp(e) : undefined;
+                    }}
+                  >
+                    <p
+                      className={`${mail && password ? "text-white" : "text-gray-400"}`}
+                    >
+                      Create account
+                    </p>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
           <div className="flex items-end justify-end">
             <h1 className="font-chakrapetch text-right text-6xl font-bold uppercase text-white max-lg:text-5xl">
               Welcome in the barber team
@@ -411,8 +494,7 @@ function Profiles() {
       {connected && (
         <div className="relative flex h-screen items-center justify-center overflow-hidden">
           <div
-            className="mt-2 h-5/6 w-11/12 overflow-y-scroll rounded-2xl border-2 border-zinc-300"
-            style={{ backgroundColor: "#141218" }}
+            className="mt-2 h-[95%] w-11/12 overflow-y-scroll rounded-2xl border-2 border-zinc-300 bg-[#141218]"
           >
             <div className="flex flex-col items-center p-3">
               <div className="flex w-full items-center justify-around p-3 max-md:flex-col">
@@ -425,7 +507,7 @@ function Profiles() {
                       Happy to see you again !
                     </p>
                     <button
-                      className="flex w-2/5 items-center justify-center rounded-2xl bg-orange-300 p-3 hover:bg-orange-500"
+                      className="flex w-2/5 items-center justify-center rounded-2xl bg-orange-300 p-3 max-sm:w-3/5 hover:bg-orange-500"
                       onClick={() => LogOut()}
                     >
                       <h1 className="font-bold">Disconnect</h1>
@@ -478,8 +560,8 @@ function Profiles() {
             <div className="p-2">
               <div className="flex justify-around max-lg:flex-col">
                 <div className="my-2 flex flex-col items-center justify-center">
-                  <h1 className="text-xl text-white">Select your days off</h1>
-                  <div className="my-3 flex">{dayOffDisplay}</div>
+                  <h1 className="text-xl text-white text-center">Select your days off</h1>
+                  <div className="my-3 flex max-sm:w-full max-sm:flex-wrap max-sm:justify-center">{dayOffDisplay}</div>
 
                   <button
                     className="rounded-xl border-2 p-3"
@@ -489,10 +571,10 @@ function Profiles() {
                   </button>
                 </div>
                 <div className="my-2 flex flex-col items-center justify-center">
-                  <h1 className="text-xl text-white">
+                  <h1 className="text-xl text-white text-center">
                     Select your lunch break
                   </h1>
-                  <div className="my-3 flex">{dayOffDisplay}</div>
+                  <div className="my-3 flex max-sm:w-full max-sm:flex-wrap max-sm:justify-center">{dayOffDisplay}</div>
 
                   <button
                     className="rounded-xl border-2 p-3"
@@ -509,7 +591,7 @@ function Profiles() {
           </div>
         </div>
       )}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

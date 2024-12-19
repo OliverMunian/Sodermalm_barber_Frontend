@@ -38,10 +38,10 @@ function Home() {
   //   }
 
   return (
-    <div className="bg-barber-wallpaper relative flex h-screen w-full flex-col items-center bg-cover">
+    <div className="bg-barber-wallpaper relative flex w-full flex-col items-center bg-cover h-full">
       <Header />
       <div className="flex h-full w-11/12 flex-col items-start">
-        <div className="flex w-full items-start max-md:justify-center">
+        <div className="flex w-full items-start max-md:justify-center py-4">
           {choice == null && (
             <div
               className="flex h-96 w-96 flex-col items-center justify-evenly rounded-2xl p-6 backdrop-blur-sm max-lg:h-80 max-lg:max-w-80"

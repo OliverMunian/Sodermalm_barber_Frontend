@@ -1,7 +1,7 @@
 import styles from "../../../styles/Home.module.css";
 // import "../../app/global.css";
 import { useState, useCallback, useRef } from "react";
-import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, MarkerF, LoadScript } from "@react-google-maps/api";
 import Image from "next/image";
 
 import Footer from "@/app/components/Footer";
@@ -65,6 +65,8 @@ const infosSaloon = [
     image: SL,
   },
 ];
+
+const libraries = ["places"];
 
 const displayInfosSaloon = infosSaloon.map((element, i) => {
   if (element.image) {
@@ -242,10 +244,10 @@ function About() {
   return (
     <div
       className="flex h-screen w-full max-lg:flex-col"
-      style={{ backgroundColor: "#47403c" }}
+      style={{backgroundColor: "#47403c"}}
       id="About"
     >
-      <div className="flex w-1/3 items-center justify-center max-lg:mt-10 max-lg:h-2/4 max-lg:w-full max-lg:justify-around">
+      <div className="flex w-1/3 items-center justify-center max-lg:mt-5 max-lg:h-2/4 max-lg:w-full max-lg:justify-around">
         <div className="flex h-full w-11/12 flex-col items-center justify-around">
           <h1 className="text-5xl uppercase text-white font-chakrapetch font-bold">
             Discover the path to a unique experience{" "}
@@ -268,21 +270,22 @@ function About() {
       <div className="flex w-2/3 max-lg:h-2/4 max-lg:w-full max-md:flex-col max-md:items-center max-md:justify-center">
         <div className="flex w-1/2 items-center justify-center max-md:w-full max-md:h-full">
           <div className="relative h-4/6 w-8/12 overflow-hidden rounded-3xl max-md:h-5/6 max-md:w-10/12">
-            <GoogleMap
+          <GoogleMap
               mapContainerClassName="absolute inset-0"
               center={center}
               zoom={11}
               onLoad={onLoad}
               onUnmount={onUnmount}
               options={{
-                styles: darkModeStyles, // Applique le style sombre
-                disableDefaultUI: true, // Retire les contrôles par défaut (zoom, type de carte, etc.)
+                styles: darkModeStyles, 
+                disableDefaultUI: true,
               }}
             >
               <MarkerF
                 position={{ lat: place.latitude, lng: place.longitude }}
               />
             </GoogleMap>
+   
             <div className="absolute h-full w-full bg-orange-300 opacity-10"></div>
           </div>
         </div>

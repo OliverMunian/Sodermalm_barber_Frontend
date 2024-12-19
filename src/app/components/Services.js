@@ -86,7 +86,7 @@ function Services() {
   });
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-around bg-orange-100 py-5" id='Services'>
+    <div className="flex h-full w-full flex-col items-center justify-around bg-orange-100 py-5" id='Services'>
       <div className="flex w-11/12 justify-between max-lg:flex-col">
         <div className="flex w-1/4 flex-col max-xl:w-2/4 max-lg:w-full">
           <h1 className="font-chakrapetch text-5xl font-bold uppercase text-black">

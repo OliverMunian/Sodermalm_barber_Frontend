@@ -40,6 +40,8 @@ function Barber(props) {
   const BACKEND_ADRESS = "https://sodermalm-baber-backend.vercel.app";
   const [barberProfile, setBarberProfile] = useState([]);
   const [daysOff, setDaysOff] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadedImages, setLoadedImages] = useState(0);
   let daySelected = date;
 
   const barberProfiles = barberProfile.map((data) => ({
@@ -69,6 +71,18 @@ function Barber(props) {
     };
   }, []);
 
+  const handleImageLoad = () => {
+    setLoadedImages((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    console.log('les images sont chargés !')
+    console.log(loadedImages)
+    if (loadedImages === barberProfiles.length) {
+      setLoading(false);
+    }
+  }, [loadedImages, barberProfiles]);
+
   const displayBarberProfiles = barberProfiles.map((data, i) => {
     return (
       <SwiperSlide key={`${data.name}-${i}`}>
@@ -77,7 +91,9 @@ function Barber(props) {
           style={{ overflow: "hidden" }}
         >
           <div
-            className={"relative flex h-52 w-44 items-center justify-center overflow-hidden rounded-lg max-md:h-44 max-md:w-40 backdrop-blur-lg"}
+            className={
+              "relative flex h-52 w-44 items-center justify-center overflow-hidden rounded-lg backdrop-blur-lg max-md:h-44 max-md:w-40"
+            }
             style={{
               border: selected == i ? "3px solid green" : "3px solid white",
               backgroundColor:
@@ -90,6 +106,7 @@ function Barber(props) {
             <img
               src={data.src}
               alt={data.alt}
+              onLoad={handleImageLoad}
               style={{
                 width: "100%",
                 height: "100%",
@@ -215,8 +232,30 @@ function Barber(props) {
             </div>
           </div>
           <div className="w-full">
-            <Swiper
-              spaceBetween={50}
+            {loading ? (
+              <div className="flex h-full w-full items-center justify-center">
+                <div className="loader text-white text-xl">Loading...</div>
+              </div>
+            ) : (
+              <Swiper
+                spaceBetween={100}
+                effect={"cards"}
+                cardsEffect={{
+                  slideShadows: false,
+                }}
+                grabCursor={true}
+                modules={[EffectCards]}
+                centeredSlides={false}
+                slidesPerView={"auto"}
+                pagination={{
+                  clickable: true,
+                }}
+              >
+                {displayBarberProfiles}
+              </Swiper>
+            )}
+            {/* <Swiper
+              spaceBetween={100}
               // allowTouchMove={selected}
               effect={"cards"}
               cardsEffect={{
@@ -231,7 +270,7 @@ function Barber(props) {
               }}
             >
               {displayBarberProfiles}
-            </Swiper>
+            </Swiper> */}
           </div>
 
           {barberChoosen.name ? (
